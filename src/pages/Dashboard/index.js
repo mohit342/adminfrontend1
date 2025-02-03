@@ -148,7 +148,7 @@ const Dashboard = () => {
 
                 </div>
 
-
+                {/* <div Classname="conatinerpro12"> */}
                 <div className="card shadow border-0 p-3 mt-4">
                     <h3 className="hd">Best Selling Products</h3>
                     <div className="table-container">
@@ -175,15 +175,15 @@ const Dashboard = () => {
                             </tbody>
                         </table>
                     </div>
+                    {/* <div className="card shadow border-0 p-3 mt-4">
+                        <h3 className="hd">Best Selling Products</h3>
+                        </div> */}
+
+                    {/* </div> */}
+
+
+
                 </div>
-
-                {/* <div className="card1 shadow border-0 p-3 mt-4">
-                <h3 className="hd1">Best Selling Products</h3>
-                
-                
-                
-                </div> */}
-
             </div>
 
 

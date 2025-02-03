@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { MdOutlineMenuOpen } from "react-icons/md";
@@ -25,8 +25,7 @@ import Divider from '@mui/material/Divider';
 import { StayPrimaryLandscapeOutlined } from '@mui/icons-material';
 import { Carousel } from 'bootstrap';
 import men from "../../assets/images/men.jpg";
-
-
+import { MyContext } from '../../App';
 
 
 const Header = () => {
@@ -35,6 +34,8 @@ const Header = () => {
     const [isOpennotificationDrop, setisOpennotificationDrop] = useState(false);
     const openMyAcc = Boolean(anchorEl);
     const openNotifications = Boolean(isOpennotificationDrop);
+
+    const context =useContext(MyContext)
 
     const handleOpenMyAccDrop = (event) => {
         setAnchorEl(event.currentTarget);
@@ -60,7 +61,13 @@ const Header = () => {
                             <img src={logo} alt="Logo" className="logo" />
                         </div>
                         <div className="col-sm-3 d-flex align-items-center part2 pl-4">
-                            <Button className="rounded-circle mr-3"><MdOutlineMenuOpen /></Button>
+                            <Button className="rounded-circle mr-3" 
+                            onClick={() => context.setsToggleSidebar(!context.isToggleSidebar)}>
+                            {
+                                context.isToggleSidebar===false ? <MdOutlineMenuOpen /> : <MdOutlineMenu />
+
+                            }
+                            </Button>
                             <SearchBox />
                         </div>
 
@@ -85,160 +92,160 @@ const Header = () => {
 
                                     <Divider className='mb-3' />
                                     <div className="scroll">
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={user} alt="User Image" /></span>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={user} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Tinku</b>
+                                                            added to his favorite list
+                                                            <b>     leather belt steve madden</b>
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>few seconds ago</p>
+                                                </div>
                                             </div>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={men} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Mohit </b>
+                                                            added to his favorite list
+                                                            <b> leather belt steve madden</b>
+
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>20 seconds ago</p>
+                                                </div>
                                             </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Tinku</b>
-                                                         added to his favorite list
-                                                          <b>     leather belt steve madden</b>
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>few seconds ago</p>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={user} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Preana</b>
+                                                            added to his favorite list
+                                                            <b>  leather belt steve madden</b>
+
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>1 min  ago</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={men} alt="User Image" /></span>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={user} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Tinku</b>
+                                                            added to his favorite list
+                                                            <b>     leather belt steve madden</b>
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>few seconds ago</p>
+                                                </div>
                                             </div>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={user} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Tinku</b>
+                                                            added to his favorite list
+                                                            <b>     leather belt steve madden</b>
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>few seconds ago</p>
+                                                </div>
                                             </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Mohit </b>
-                                                         added to his favorite list
-                                                         <b> leather belt steve madden</b>
-                                                          
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>20 seconds ago</p>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={user} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Tinku</b>
+                                                            added to his favorite list
+                                                            <b>     leather belt steve madden</b>
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>few seconds ago</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={user} alt="User Image" /></span>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={user} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Tinku</b>
+                                                            added to his favorite list
+                                                            <b>     leather belt steve madden</b>
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>few seconds ago</p>
+                                                </div>
                                             </div>
+                                        </MenuItem>
+                                        <MenuItem onClick={handleCloseMyAccDrop}>
+                                            <div className='d-flex '>
+                                                <div> <div className="userImg">
+                                                    <span className="rounded-circle">
+                                                        <img src={user} alt="User Image" /></span>
+                                                </div>
+                                                </div>
+                                                <div className='dropdownInfo' >
+                                                    <h4>
+                                                        <span>
+                                                            <b>Tinku</b>
+                                                            added to his favorite list
+                                                            <b>     leather belt steve madden</b>
+                                                        </span>
+                                                    </h4>
+                                                    <p className='text-sky mb-0'>few seconds ago</p>
+                                                </div>
                                             </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Preana</b>
-                                                         added to his favorite list
-                                                         <b>  leather belt steve madden</b>
-                                                          
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>1 min  ago</p>
-                                            </div>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={user} alt="User Image" /></span>
-                                            </div>
-                                            </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Tinku</b>
-                                                         added to his favorite list
-                                                          <b>     leather belt steve madden</b>
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>few seconds ago</p>
-                                            </div>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={user} alt="User Image" /></span>
-                                            </div>
-                                            </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Tinku</b>
-                                                         added to his favorite list
-                                                          <b>     leather belt steve madden</b>
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>few seconds ago</p>
-                                            </div>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={user} alt="User Image" /></span>
-                                            </div>
-                                            </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Tinku</b>
-                                                         added to his favorite list
-                                                          <b>     leather belt steve madden</b>
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>few seconds ago</p>
-                                            </div>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={user} alt="User Image" /></span>
-                                            </div>
-                                            </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Tinku</b>
-                                                         added to his favorite list
-                                                          <b>     leather belt steve madden</b>
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>few seconds ago</p>
-                                            </div>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <div className='d-flex '>
-                                           <div> <div className="userImg">
-                                                <span className="rounded-circle">
-                                                    <img src={user} alt="User Image" /></span>
-                                            </div>
-                                            </div>
-                                            <div className='dropdownInfo' >
-                                                <h4>
-                                                    <span>
-                                                        <b>Tinku</b>
-                                                         added to his favorite list
-                                                          <b>     leather belt steve madden</b>
-                                                           </span>
-                                                           </h4>
-                                                           <p className='text-sky mb-0'>few seconds ago</p>
-                                            </div>
-                                        </div>
-                                    </MenuItem>
+                                        </MenuItem>
                                     </div>
 
                                 </Menu>
@@ -282,7 +289,7 @@ const Header = () => {
                                     </MenuItem>
                                     <MenuItem onClick={handleCloseMyAccDrop}>
                                         <ListItemIcon>
-                                            <Logout fontSize="small" />
+                                            <Logout fontSize="small " />
                                         </ListItemIcon>
                                         Logout
                                     </MenuItem>
