@@ -6,6 +6,10 @@ import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BiSidebar } from 'react-icons/bi';
 import Sidebar from './components/Sidebar';
+import Addproduct from './pages/Addproduct/Addproduct';
+import ProductList from './pages/ProductList/ProductList';
+import ProductDetail from './pages/ProductDetail/ProductDetail';
+import TotalStocks from './pages/TotalStocks/TotalStocks';
 import OrderPages from './pages/Orderpages/Orderpages';
 import Alluser from './pages/User/Alluser/Alluser';
 import {  createContext, useEffect, useState } from 'react';
@@ -40,14 +44,16 @@ function App() {
               <Route path="/dashboard" exact={true} element={<Dashboard />} />
               <Route path="/OrderPages" exact={true} element={<OrderPages />} />
               <Route path="/Alluser" exact={true} element={<Alluser />} />
-              
+              <Route path="/addproduct" exact={true} element={<Addproduct/>} />
+            <Route path="/productlist" exact={true} element={<ProductList/>} />
+            <Route path="/productdetail" exact={true} element={<ProductDetail/>} />
+            <Route path="/totalstocks" exact={true} element={<TotalStocks/>} />              
 
 
 
             </Routes>
-
-          </div>
-        </div>
+      </div>
+      </div>
       </MyContext.Provider>
 
     </BrowserRouter>
