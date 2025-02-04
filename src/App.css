@@ -195,7 +195,7 @@ header button.rounded-circle:hover svg{
 .main .sidebarWrapper .sidebar ul .submenu{padding:0px 45px; position: relative;transition: all 0.3s ease-in-out;height: 0px;}
 .main .sidebarWrapper .sidebar ul .submenu::before{content:'';width:1px ;height:95% ;position: absolute;top:0px;left:25px;background: rgba(0,0,0,0.1);}
 .main .sidebarWrapper .sidebar ul .submenu li{width: 100%;list-style: none;}
-.main .sidebarWrapper .sidebar ul .submenu li a{color: #5e5d72 !important;text-decoration:none;display:block;padding:6px 0px;font-size:14px;font-weight: 500; transition:all 0.3s;}
+.main .sidebarWrapper .sidebar ul .submenu li a{color: #5e5d72 !important;text-decoration:none;display:block;padding:6px 0px;font-size:14px;font-weight: 600; transition:all 0.3s;}
 .main .sidebarWrapper .sidebar ul .submenu li a:hover{color : #0858f7 !important;}
 .main .sidebarWrapper .sidebar ul .submenuWrapper{transition: all 0.4s ease-in-out;height: 0px; overflow:hidden; opacity: 0;}
 .main .sidebarWrapper .sidebar ul .submenuWrapper.colapsed .submenu{opacity: 0;}
