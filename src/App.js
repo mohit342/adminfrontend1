@@ -29,7 +29,7 @@ function App() {
 
   return (
     <BrowserRouter>
-     
+      <MyContext.Provider value={values}>
         <Header />
         <div className='main d-flex'>
           <div className={`sidebarWrapper ${isToggleSidebar===true ? 'toggle' : ''}`}>
@@ -50,7 +50,7 @@ function App() {
             </Routes>
       </div>
       </div>
-     
+      </MyContext.Provider>
 
     </BrowserRouter>
   )
