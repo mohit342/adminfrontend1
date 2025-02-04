@@ -177,7 +177,7 @@ header button.rounded-circle:hover svg{
 
 /* sdiebar  */
 
-.main .sidebarWrapper{width: 20%;flex: 0 0 20%;transition: all 0.3s;}
+.main .sidebarWrapper{width: 20%;flex: 0 0 20%;transition: all 0.3s; z-index: 2;}
 .main .sidebarWrapper.toggle{width: 0%;flex: 0 0 0%;}
 .main .sidebarWrapper .sidebar{width: 20%; height: 100vh;max-height:calc(100% - 70px); position: fixed;top : 70px;left:0px;background: #fff ; overflow-y: scroll;overflow-x: hidden; padding-bottom: 40px; transition: all 0.3s ;}
 .main .sidebarWrapper.toggle .sidebar{left: -100%;}

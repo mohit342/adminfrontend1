@@ -8,6 +8,7 @@ const Alluser = () => {
     {
       id: 1,
       name: 'Kristin',
+      role:'SE',
       phone: '9765241837',
       email: 'kristin@gmail.com',
       address:'b124,mittsure,jaipur',
@@ -17,6 +18,7 @@ const Alluser = () => {
     {
         id: 1,
         name: 'Prerna',
+        role:'School',
         phone: '7896541236',
         email: 'prerna@gmail.com',
         address:'b124,mittsure,jaipur',
@@ -26,6 +28,7 @@ const Alluser = () => {
       {
         id: 1,
         name: 'mohit',
+        role:'Student',
         phone: '9765285263',
         email: 'mohit@gmail.com',
         address:'b124,mittsure,jaipur',
@@ -35,6 +38,7 @@ const Alluser = () => {
       {
         id: 1,
         name: 'lakshita',
+        role:'School',
         phone: '9765241837',
         email: 'lakshita@gmail.com',
         address:'b124,mittsure,jaipur',
@@ -42,6 +46,10 @@ const Alluser = () => {
         
       },
   ]);
+
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.role.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
     <div className="container13">
@@ -61,19 +69,21 @@ const Alluser = () => {
       <div className="table13">
         <div className="tableHeader13 font-weight-bold">
           <div>User</div>
+          <div>roles</div>
           <div>Phone number</div>
           <div>Email</div>
           <div>Address</div>
           <div>joining Date</div>
           <div>Action</div>
         </div>
-
-        {users.map(user => (
+        
+        {filteredUsers.map(user => (
           <div key={user.id} className="tableRow13">
             <div className="userInfo13">
               <div className="userName13">{user.name}</div>
               
             </div>
+            <div>{user.role}</div>
             <div>{user.phone}</div>
             <div>{user.email}</div>
             <div>{user.address}</div>

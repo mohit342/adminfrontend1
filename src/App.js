@@ -7,8 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BiSidebar } from 'react-icons/bi';
 import Sidebar from './components/Sidebar';
 import OrderPages from './pages/Orderpages/Orderpages';
-import Alluser from './pages/User/Alluser';
+import Alluser from './pages/User/Alluser/Alluser';
 import {  createContext, useEffect, useState } from 'react';
+
+
+
 
 
  const MyContext =  createContext();
@@ -37,6 +40,7 @@ function App() {
               <Route path="/dashboard" exact={true} element={<Dashboard />} />
               <Route path="/OrderPages" exact={true} element={<OrderPages />} />
               <Route path="/Alluser" exact={true} element={<Alluser />} />
+              
 
 
 
