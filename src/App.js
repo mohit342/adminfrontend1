@@ -10,33 +10,51 @@ import Addproduct from './pages/Addproduct/Addproduct';
 import ProductList from './pages/ProductList/ProductList';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import TotalStocks from './pages/TotalStocks/TotalStocks';
+import OrderPages from './pages/Orderpages/Orderpages';
+import Alluser from './pages/User/Alluser';
+import {  createContext, useEffect, useState } from 'react';
 
 
+ const MyContext =  createContext();
 
 function App() {
+  const [isToggleSidebar, setsToggleSidebar] = useState(false);
+
+  const values = {
+    isToggleSidebar,
+    setsToggleSidebar
+  }
+
+
+
   return (
     <BrowserRouter>
-      <Header />
-      <div className='main d-flex'>
-        <div className='sidebarWrapper'>
-          <Sidebar/>
-        </div>
-        <div className='content'>
-          <Routes>
-            <Route path="/" exact={true} element={<Dashboard />} />
-            <Route path="/dashboard" exact={true} element={<Dashboard />} />
-            <Route path="/addproduct" exact={true} element={<Addproduct/>} />
+     
+        <Header />
+        <div className='main d-flex'>
+          <div className={`sidebarWrapper ${isToggleSidebar===true ? 'toggle' : ''}`}>
+            <Sidebar />
+          </div>
+          <div className={`content ${isToggleSidebar===true ? 'toggle' : ''}`}>
+            <Routes>
+              <Route path="/" exact={true} element={<Dashboard />} />
+              <Route path="/dashboard" exact={true} element={<Dashboard />} />
+              <Route path="/OrderPages" exact={true} element={<OrderPages />} />
+              <Route path="/Alluser" exact={true} element={<Alluser />} />
+              <Route path="/addproduct" exact={true} element={<Addproduct/>} />
             <Route path="/productlist" exact={true} element={<ProductList/>} />
             <Route path="/productdetail" exact={true} element={<ProductDetail/>} />
             <Route path="/totalstocks" exact={true} element={<TotalStocks/>} />
 
-          </Routes>
 
-        </div>
+            </Routes>
       </div>
+      </div>
+     
 
     </BrowserRouter>
   )
 }
 
 export default App;
+export {MyContext}

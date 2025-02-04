@@ -1,0 +1,122 @@
+/* Container Styling */
+.order-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    margin-top: 5%;
+  }
+  
+  /* Header Section */
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  /* Search Input */
+  .search-input1 {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+  }
+  
+ 
+  
+  /* Table Styling */
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Table Headers & Cells */
+  .order-table th,
+  .order-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .order-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+  }
+  
+  /* Product Info */
+  .product-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .product-image {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  /* Status Button Styling */
+  .status {
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 12px;
+    text-align: center;
+    min-width: 70px;
+    border: none;
+    cursor: default;
+  }
+  
+  .status.success {
+    color: green;
+    background-color: #e0f5e9;
+  }
+  
+  .status.pending {
+    color: gray;
+    background-color: #f4f4f4;
+  }
+  
+  .status.cancel {
+    color: red;
+    background-color: #fdecea;
+  }
+  
+  /* Action Icons */
+  .action-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .icon {
+    cursor: pointer;
+    transition: transform 0.2s;
+    font-size: 18px;
+  }
+  
+  .icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .view-icon {
+    color: #007bff;
+  }
+  
+  .edit-icon {
+    color: #28a745;
+  }
+  
+  .delete-icon {
+    color: #dc3545;
+  }
+  

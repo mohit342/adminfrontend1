@@ -4,7 +4,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { MdShoppingCart } from "react-icons/md";
 import { GiMoneyStack } from "react-icons/gi";
 import { Link } from 'react-router-dom';
-import { useState } from 'react';   
+import { useContext, useState } from 'react';   
 import { IoSettings } from "react-icons/io5";
 import { RiMessage3Fill } from "react-icons/ri";
 import { MdOutlineLogout } from "react-icons/md";
@@ -17,11 +17,15 @@ import { MdWarehouse } from "react-icons/md";
 import { FaLayerGroup } from "react-icons/fa";
 import { HiCube } from "react-icons/hi2";
 import { GrProductHunt } from "react-icons/gr";
+import { MyContext } from '../../App';
+
 
 
 const Sidebar = () => {
     const [activeTab, setActiveTab ] = useState(0);
     const [isToggleSubmenu, setIsToggleSubmenu ] = useState(false);
+
+    const context = useContext(MyContext);
    
     const isOpenSubmenu=(index)=>{
         setActiveTab(index);
@@ -98,7 +102,7 @@ const Sidebar = () => {
                         </Button>
                         <div className={`submenuWrapper ${activeTab===4 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
-                                <li><Link to="#">View/Manage all order</Link></li>
+                                <li><Link to="/OrderPages">View/Manage all order</Link></li>
                                 <li><Link to="#">Invoice & billing</Link></li>
                                 <li><Link to="#">Return and refund</Link></li>
 
@@ -124,8 +128,14 @@ const Sidebar = () => {
                     <Button className={`w-100 ${activeTab===6 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(6)}>
                             <span className='icon'><FaUser /></span>
                             User Role
-                            {/* <span className='arrow'><IoIosArrowForward /></span> */}
+                            <span className='arrow'><IoIosArrowForward /></span>
                         </Button>
+                        <div className={`submenuWrapper ${activeTab===6 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
+                            <ul className='submenu'>
+                                <li><Link to="/Alluser">All User</Link></li>
+                                
+                            </ul>
+                        </div>
                     </li>
                     <li>
                     <Button className={`w-100 ${activeTab===7 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(7)}>
