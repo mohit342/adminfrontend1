@@ -10,9 +10,19 @@ import ProductDetail from './pages/ProductDetail/ProductDetail';
 import TotalStocks from './pages/TotalStocks/TotalStocks';
 import OrderPages from './pages/Orderpages/Orderpages';
 import Alluser from './pages/User/Alluser/Alluser';
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext,useEffect } from 'react';
 import Login from './components/login/login';
 import { AuthContext } from './context/AuthContext';
+import Notifications from './pages/Notification/Notification';
+import PaymentTransactions from './pages/Payment/PaymentTransactions';
+import InvoiceBilling from './pages/InvoiceBilling/InvoiceBilling';
+import Return from './pages/Return/Return';
+import AddAttribute from './pages/AddAttribute/AddAttribute';
+import AttributePage from './pages/AttributePage/AttributePage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
+import SalesReports from './pages/SalesReports/SalesReports';
+import BestSellingProducts from './pages/BestSellingProducts/BestSellingProducts';
+
 
 const MyContext = createContext();
 
@@ -50,6 +60,23 @@ function App() {
               <Route path="/productlist" element={<ProtectedRoute><ProductList /></ProtectedRoute>} />
               <Route path="/productdetail" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
               <Route path="/totalstocks" element={<ProtectedRoute><TotalStocks /></ProtectedRoute>} />
+             
+            
+            <Route path="/notification"  element={<ProtectedRoute><Notifications/></ProtectedRoute>} />
+            <Route path="/PaymentTransactions" element={<ProtectedRoute><PaymentTransactions/></ProtectedRoute>} />
+            <Route path="/invoice"  element={<ProtectedRoute><InvoiceBilling/></ProtectedRoute>} />
+            <Route path="/return"  element={<ProtectedRoute><Return/></ProtectedRoute>} />
+            <Route path="/addattribute"  element={<ProtectedRoute><AddAttribute/></ProtectedRoute>} />
+            <Route path="/attributepage"  element={<ProtectedRoute><AttributePage/></ProtectedRoute>} />
+            {/* <Route path="/register"  element={<ProtectedRoute><SignupForm/></ProtectedRoute>} /> */}
+            <Route path="/setting"  element={<ProtectedRoute><SettingsPage/></ProtectedRoute>} />
+            <Route path="/salesreports"  element={<ProtectedRoute><SalesReports/></ProtectedRoute>} />
+            <Route path="/bestselling"  element={<ProtectedRoute><BestSellingProducts/></ProtectedRoute>} />
+
+
+
+
+
             </Routes>
           </div>
         </div>

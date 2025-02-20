@@ -74,7 +74,7 @@ const Sidebar = () => {
                         </Button>
                         <div className={`submenuWrapper ${activeTab===2 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
-                                <li><Link to="#">Add Category</Link></li>
+                                <li><Link to="/register">Add Category</Link></li>
                                 <li><Link to="#">Category List</Link></li>
                              
 
@@ -89,8 +89,8 @@ const Sidebar = () => {
                         </Button>
                         <div className={`submenuWrapper ${activeTab===3 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
-                                <li><Link to="#">Attributes</Link></li>
-                                <li><Link to="#">Add Attributes</Link></li>
+                                <li><Link to="/attributepage">Attributes</Link></li>
+                                <li><Link to="/addattribute">Add Attributes</Link></li>
                                 
 
                             </ul>
@@ -105,8 +105,8 @@ const Sidebar = () => {
                         <div className={`submenuWrapper ${activeTab===4 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
                                 <li><Link to="/OrderPages">View/Manage all order</Link></li>
-                                <li><Link to="#">Invoice & billing</Link></li>
-                                <li><Link to="#">Return and refund</Link></li>
+                                <li><Link to="/invoice">Invoice & billing</Link></li>
+                                <li><Link to="/return">Return and refund</Link></li>
 
                             </ul>
                         </div>
@@ -141,11 +141,11 @@ const Sidebar = () => {
                         </div>
                     </li>
                     <li>
-                    <Button className={`w-100 ${activeTab===7 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(7)}>
+                   <Link to ="/PaymentTransactions"> <Button className={`w-100 ${activeTab===7 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(7)}>
                             <span className='icon'><GiWallet /></span>
                              Payment Transaction
                             {/* <span className='arrow'><IoIosArrowForward /></span> */}
-                        </Button>
+                        </Button></Link>
                     </li>
                     <li>
                     <Button className={`w-100 ${activeTab===8 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(8)}>
@@ -185,8 +185,8 @@ const Sidebar = () => {
                         </Button>
                         <div className={`submenuWrapper ${activeTab===10 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
-                                <li><Link to="#">Sales & Revenue Reports</Link></li>
-                                <li><Link to="#">Best selling products</Link></li>
+                                <li><Link to="/salesreports">Sales & Revenue Reports</Link></li>
+                                <li><Link to="/bestselling">Best selling products</Link></li>
 
                             </ul>
                         </div>
@@ -207,18 +207,18 @@ const Sidebar = () => {
                     </li>
                     
                     <li>
-                    <Button className={`w-100 ${activeTab===12 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(12)}>
+                   <Link to="/notification"> <Button className={`w-100 ${activeTab===12 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(12)}>
                             <span className='icon'><RiMessage3Fill /></span>
                             Notification
                             {/* <span className='arrow'><IoIosArrowForward /></span> */}
-                        </Button>
+                        </Button></Link>
                     </li>
                     <li>
-                    <Button className={`w-100 ${activeTab===13 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(13)}>
+                    <Link to="/setting"><Button className={`w-100 ${activeTab===13 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(13)}>
                             <span className='icon'><IoSettings /></span>
                             Settings
                             {/* <span className='arrow'><IoIosArrowForward /></span> */}
-                        </Button>
+                        </Button></Link>
                     </li>
                 
 
