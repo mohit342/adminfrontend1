@@ -18,10 +18,12 @@ import { FaLayerGroup } from "react-icons/fa";
 import { HiCube } from "react-icons/hi2";
 import { GrProductHunt } from "react-icons/gr";
 import { MyContext } from '../../App';
+import { AuthContext } from '../../context/AuthContext'; // login
 
 
 
 const Sidebar = () => {
+    const { logout } = useContext(AuthContext); //login
     const [activeTab, setActiveTab ] = useState(0);
     const [isToggleSubmenu, setIsToggleSubmenu ] = useState(false);
 
@@ -223,7 +225,8 @@ const Sidebar = () => {
                 </ul>
                 <div className='logoutWrapper'>
                <div className='logoutBox'>
-                <Button variant="contained"><MdOutlineLogout/>Logout</Button>
+                <Button variant="contained" onClick={logout}><MdOutlineLogout/>Logout</Button>
+                
 
                </div>
                </div>

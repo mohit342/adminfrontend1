@@ -148,40 +148,62 @@ const Dashboard = () => {
                 </div>
 
                 {/* <div Classname="conatinerpro12"> */}
-                <div className="card shadow border-0 p-3 mt-4">
-                    <h3 className="hd">Best Selling Products</h3>
-                    <div className="table-container">
-                        <table className="product-table">
-                            <thead>
-                                <tr>
-                                    <th>Product ID</th>
-                                    <th>Image</th>
-                                    <th>Product Name</th>
-                                    <th>Price</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {products.map((product) => (
-                                    <tr key={product.id}>
-                                        <td>{product.id}</td>
-                                        <td>
-                                            <img src={product.image} alt={product.name} className="product-image" />
-                                        </td>
-                                        <td>{product.name}</td>
-                                        <td className="price">{product.price}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    {/* <div className="card shadow border-0 p-3 mt-4">
+                <div className="dashboardTablesWrapper">
+                    <div className="card ">
                         <h3 className="hd">Best Selling Products</h3>
-                        </div> */}
+                        <div className="table-container">
+                            <table className="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Product ID</th>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.map((product) => (
+                                        <tr key={product.id}>
+                                            <td>{product.id}</td>
+                                            <td>
+                                                <img src={product.image} alt={product.name} className="product-image" />
+                                            </td>
+                                            <td>{product.name}</td>
+                                            <td className="price">{product.price}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
 
-                    {/* </div> */}
 
 
 
+                    </div>
+                    <div className="container1 ">
+                        <h3 className="hd1">Top Trending products</h3>
+                        <div className="table-container">
+                            <table className="product-table">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {products.map((product) => (
+                                        <tr key={product.id}>
+                                            <td>
+                                                <img src={product.image} alt={product.name} className="product-image" />
+                                            </td>
+                                            <td>{product.name}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 
