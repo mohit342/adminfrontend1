@@ -1,28 +1,29 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import './login.css'; // Import the CSS
+import './adminLogin.css'; // Updated CSS import
 
-const Login = () => {
+const AdminLogin = () => { // Updated component name
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { login } = useContext(AuthContext);
+  const { AdminLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch('http://localhost:5000/api/auth/AdminLogin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
+        credentials: 'include', 
       });
 
       if (response.ok) {
         const data = await response.json();
-        login(data.user); 
+        AdminLogin(data.user); 
         navigate('/dashboard'); 
       } else {
         const errorData = await response.json();
@@ -35,8 +36,8 @@ const Login = () => {
   };
 
   return (
-    <div className="login-container">
-      <div className="login-form">
+    <div className="login-container"> {/* Updated class name */}
+      <div className="login-form"> {/* Updated class name */}
         <h1>Admin Login</h1>
         <form onSubmit={handleLogin}>
           <div>
@@ -61,9 +62,9 @@ const Login = () => {
           <button type="submit">Login</button>
         </form>
       </div>
-      <div className="login-image"></div>
+      <div className="login-image"></div> {/* Updated class name */}
     </div>
   );
 };
 
-export default Login;
+export default AdminLogin; // Updated export

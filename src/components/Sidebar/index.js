@@ -23,7 +23,7 @@ import { AuthContext } from '../../context/AuthContext'; // login
 
 
 const Sidebar = () => {
-    const { logout } = useContext(AuthContext); //login
+    const { AdminLogout } = useContext(AuthContext);  //login
     const [activeTab, setActiveTab ] = useState(0);
     const [isToggleSubmenu, setIsToggleSubmenu ] = useState(false);
 
@@ -225,7 +225,7 @@ const Sidebar = () => {
                 </ul>
                 <div className='logoutWrapper'>
                <div className='logoutBox'>
-                <Button variant="contained" onClick={logout}><MdOutlineLogout/>Logout</Button>
+                <Button variant="contained" onClick={AdminLogout}><MdOutlineLogout/>Logout</Button>
                 
 
                </div>

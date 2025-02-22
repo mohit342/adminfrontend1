@@ -34,7 +34,8 @@ import photo2 from "../../assets/images/photo2.jpg"
 
 const Header = () => {
 
-    const { user, logout } = useContext(AuthContext);
+    const { user, AdminLogout } = useContext(AuthContext); // ✅ Correct function name
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [isOpennotificationDrop, setisOpennotificationDrop] = useState(false);
     const openMyAcc = Boolean(anchorEl);
@@ -283,7 +284,7 @@ const Header = () => {
                                     <Divider />
                                     <MenuItem
                                         onClick={() => {
-                                            logout(); // Log out the user
+                                            AdminLogout(); // Log out the user
                                             handleCloseMyAccDrop();
                                         }}
                                     >

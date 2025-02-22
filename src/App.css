@@ -235,7 +235,7 @@ header button.rounded-circle:hover svg{
 /* dashboard start */
 .main .content{width: 80%; flex: 0 0 80%; transition: all 0.3s ;}
 .main .content.toggle{width: 100%; flex: 0 0 100%;}
-.right-content{padding: 90px 30px; padding-bottom: 10px; }
+.right-content{padding: 0px 30px; padding-bottom: 10px; }
 .dashboardBoxWrapper{gap: 20px;width: 100%;flex-wrap: wrap;}
 .dashboardBoxWrapper .dashboardBox{width: 48% ;height: 170px; border-radius: 10px; overflow: hidden; padding: 20px; display: flex; flex-direction: column; justify-content: space-around; text-align:left !important;position: relative; color: #fff; text-transform: capitalize !important ;} 
 .dashboardBoxWrapper .dashboardBox .col1 h4{font-size: 16px; font-weight: 600;}
