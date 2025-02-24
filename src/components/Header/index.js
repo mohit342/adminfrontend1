@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { MdOutlineMenu } from "react-icons/md";
 import logo from "../../assets/images/logo.jpg";
-import SearchBox from "../SearchBox";
+// import SearchBox from "../SearchBox";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { FaBell } from "react-icons/fa";
@@ -68,15 +68,15 @@ const Header = () => {
 
                             }
                             </Button>
-                            <SearchBox />
+                            {/* <SearchBox /> */}
                         </div>
 
                         <div className="col-sm-7 d-flex align-items-center justify-content-end part3">
                             <Button className="rounded-circle mr-3"><CiLight /></Button>
                             {/* <Button className="rounded-circle mr-3"><CiMail /></Button> */}
                             <div className='dropdownWrapper position-relative'>
-                                <Button className="rounded-circle mr-3" onClick={handleOpenotificationsDrop}><FaBell /></Button>
-                                <Menu
+                               <Link to="/notification"> <Button className="rounded-circle mr-3" onClick={handleOpenotificationsDrop}><FaBell /></Button></Link>
+                                {/* <Menu
                                     anchorEl={isOpennotificationDrop}
                                     className='notifications'
                                     id="notifications"
@@ -248,7 +248,7 @@ const Header = () => {
                                         </MenuItem>
                                     </div>
 
-                                </Menu>
+                                </Menu> */}
                             </div>
                             <div className="myAccWrapper">
                                 <Button className="myAcc d-flex align-items-center"
