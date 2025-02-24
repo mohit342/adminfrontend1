@@ -1,15 +1,15 @@
 import React, { useContext, useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, Links } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { MdOutlineMenuOpen } from "react-icons/md";
 import { MdOutlineMenu } from "react-icons/md";
 import logo from "../../assets/images/logo.jpg";
-import SearchBox from "../SearchBox";
+// import SearchBox from "../SearchBox";
 import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import { FaBell } from "react-icons/fa";
 // import { CiMail } from "react-icons/ci";
-import user from "../../assets/images/user.jpg";
+
 import notification1 from "../../assets/images/notification1.jpg";
 import { IoShieldHalfSharp } from "react-icons/io5";
 import { IoChatbubblesOutline } from "react-icons/io5";
@@ -26,16 +26,22 @@ import { StayPrimaryLandscapeOutlined } from '@mui/icons-material';
 import { Carousel } from 'bootstrap';
 import men from "../../assets/images/men.jpg";
 import { MyContext } from '../../App';
+import { AuthContext } from '../../context/AuthContext';
+import users from "../../assets/images/users.jpg"
+import photo2 from "../../assets/images/photo2.jpg"
+
 
 
 const Header = () => {
+
+    const { user, AdminLogout } = useContext(AuthContext); // ✅ Correct function name
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [isOpennotificationDrop, setisOpennotificationDrop] = useState(false);
     const openMyAcc = Boolean(anchorEl);
     const openNotifications = Boolean(isOpennotificationDrop);
 
-    const context =useContext(MyContext)
+    const context = useContext(MyContext)
 
     const handleOpenMyAccDrop = (event) => {
         setAnchorEl(event.currentTarget);
@@ -54,6 +60,7 @@ const Header = () => {
     return (
         <>
             <header>
+
                 <div className="container-fluid" >
                     <div className="row">
                         {/* {Logo Wrapper} */}
@@ -61,22 +68,22 @@ const Header = () => {
                             <img src={logo} alt="Logo" className="logo" />
                         </div>
                         <div className="col-sm-3 d-flex align-items-center part2 pl-4">
-                            <Button className="rounded-circle mr-3" 
-                            onClick={() => context.setsToggleSidebar(!context.isToggleSidebar)}>
-                            {
-                                context.isToggleSidebar===false ? <MdOutlineMenuOpen /> : <MdOutlineMenu />
+                            <Button className="rounded-circle mr-3"
+                                onClick={() => context.setsToggleSidebar(!context.isToggleSidebar)}>
+                                {
+                                    context.isToggleSidebar === false ? <MdOutlineMenuOpen /> : <MdOutlineMenu />
 
-                            }
+                                }
                             </Button>
-                            <SearchBox />
+                            {/* <SearchBox /> */}
                         </div>
 
                         <div className="col-sm-7 d-flex align-items-center justify-content-end part3">
                             <Button className="rounded-circle mr-3"><CiLight /></Button>
                             {/* <Button className="rounded-circle mr-3"><CiMail /></Button> */}
                             <div className='dropdownWrapper position-relative'>
-                                <Button className="rounded-circle mr-3" onClick={handleOpenotificationsDrop}><FaBell /></Button>
-                                <Menu
+                               <Link to="/notification"> <Button className="rounded-circle mr-3" onClick={handleOpenotificationsDrop}><FaBell /></Button></Link>
+                                {/* <Menu
                                     anchorEl={isOpennotificationDrop}
                                     className='notifications'
                                     id="notifications"
@@ -96,7 +103,7 @@ const Header = () => {
                                             <div className='d-flex '>
                                                 <div> <div className="userImg">
                                                     <span className="rounded-circle">
-                                                        <img src={user} alt="User Image" /></span>
+                                                        <img src={users} alt="User Image" /></span>
                                                 </div>
                                                 </div>
                                                 <div className='dropdownInfo' >
@@ -135,7 +142,7 @@ const Header = () => {
                                             <div className='d-flex '>
                                                 <div> <div className="userImg">
                                                     <span className="rounded-circle">
-                                                        <img src={user} alt="User Image" /></span>
+                                                        <img src={users} alt="User Image" /></span>
                                                 </div>
                                                 </div>
                                                 <div className='dropdownInfo' >
@@ -155,7 +162,7 @@ const Header = () => {
                                             <div className='d-flex '>
                                                 <div> <div className="userImg">
                                                     <span className="rounded-circle">
-                                                        <img src={user} alt="User Image" /></span>
+                                                        <img src={users} alt="User Image" /></span>
                                                 </div>
                                                 </div>
                                                 <div className='dropdownInfo' >
@@ -174,7 +181,7 @@ const Header = () => {
                                             <div className='d-flex '>
                                                 <div> <div className="userImg">
                                                     <span className="rounded-circle">
-                                                        <img src={user} alt="User Image" /></span>
+                                                        <img src={users} alt="User Image" /></span>
                                                 </div>
                                                 </div>
                                                 <div className='dropdownInfo' >
@@ -193,7 +200,7 @@ const Header = () => {
                                             <div className='d-flex '>
                                                 <div> <div className="userImg">
                                                     <span className="rounded-circle">
-                                                        <img src={user} alt="User Image" /></span>
+                                                        <img src={users} alt="User Image" /></span>
                                                 </div>
                                                 </div>
                                                 <div className='dropdownInfo' >
@@ -212,7 +219,7 @@ const Header = () => {
                                             <div className='d-flex '>
                                                 <div> <div className="userImg">
                                                     <span className="rounded-circle">
-                                                        <img src={user} alt="User Image" /></span>
+                                                        <img src={users} alt="User Image" /></span>
                                                 </div>
                                                 </div>
                                                 <div className='dropdownInfo' >
@@ -231,7 +238,7 @@ const Header = () => {
                                             <div className='d-flex '>
                                                 <div> <div className="userImg">
                                                     <span className="rounded-circle">
-                                                        <img src={user} alt="User Image" /></span>
+                                                        <img src={users} alt="User Image" /></span>
                                                 </div>
                                                 </div>
                                                 <div className='dropdownInfo' >
@@ -248,49 +255,40 @@ const Header = () => {
                                         </MenuItem>
                                     </div>
 
-                                </Menu>
+                                </Menu> */}
                             </div>
                             <div className="myAccWrapper">
-                                <Button className="myAcc d-flex align-items-center"
-                                    onClick={handleOpenMyAccDrop}>
+                                <Button className="myAcc d-flex align-items-center" onClick={handleOpenMyAccDrop}>
                                     <div className="userImg">
-                                        <span className="rounded-circle"><img src={user} alt="User Image" /></span>
-
-
+                                        <span className="rounded-circle">
+                                            <img src={photo2} alt="User" />
+                                        </span>
                                     </div>
-
                                     <div className="userInfo">
-                                        <h4>Mohit khoth</h4>
-                                        <p className=" mb-0">@mohit</p>
+                                        <h4>{user?.username || 'Guest'}</h4> {/* Display dynamic username */}
+                                        
                                     </div>
                                 </Button>
                                 <Menu
                                     anchorEl={anchorEl}
                                     id="account-menu"
-                                    open={openMyAcc}
+                                    open={Boolean(anchorEl)}
                                     onClose={handleCloseMyAccDrop}
-                                    onClick={handleCloseMyAccDrop}
-
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
-
                                     <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <ListItemIcon>
-                                            <PersonAdd fontSize="small" />
-                                        </ListItemIcon>
+                                        <ListItemIcon><PersonAdd fontSize="small" /></ListItemIcon>
                                         My Account
                                     </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <ListItemIcon>
-                                            <IoShieldHalfSharp />
-                                        </ListItemIcon>
-                                        Reset password
-                                    </MenuItem>
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
-                                        <ListItemIcon>
-                                            <Logout fontSize="small " />
-                                        </ListItemIcon>
+                                    <Divider />
+                                    <MenuItem
+                                        onClick={() => {
+                                            AdminLogout(); // Log out the user
+                                            handleCloseMyAccDrop();
+                                        }}
+                                    >
+                                        <ListItemIcon><Logout fontSize="small" /></ListItemIcon>
                                         Logout
                                     </MenuItem>
                                 </Menu>

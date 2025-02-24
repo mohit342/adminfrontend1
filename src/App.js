@@ -1,64 +1,92 @@
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes,Navigate } from 'react-router-dom';
 import './App.css';
+import { createContext, useState, useContext } from 'react';
 import Dashboard from './pages/Dashboard';
 import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BiSidebar } from 'react-icons/bi';
+import { AuthContext } from './context/AuthContext';
 import Sidebar from './components/Sidebar';
 import Addproduct from './pages/Addproduct/Addproduct';
 import ProductList from './pages/ProductList/ProductList';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import TotalStocks from './pages/TotalStocks/TotalStocks';
 import OrderPages from './pages/Orderpages/Orderpages';
+
 import Alluser from './pages/User/Alluser/Alluser';
-import {  createContext, useEffect, useState } from 'react';
-
-
-
+import Notifications from './pages/Notification/Notification';
+import PaymentTransactions from './pages/Payment/PaymentTransactions';
+import InvoiceBilling from './pages/InvoiceBilling/InvoiceBilling';
+import Return from './pages/Return/Return';
+import AddAttribute from './pages/AddAttribute/AddAttribute';
+import AttributePage from './pages/AttributePage/AttributePage';
+import SettingsPage from './pages/SettingsPage/SettingsPage';
+import SalesReports from './pages/SalesReports/SalesReports';
+import BestSellingProducts from './pages/BestSellingProducts/BestSellingProducts';
+import CustomerProfile from './pages/CustomerProfile/CustomerProfile';
+import AdminLogin from './components/AdminLogin/AdminLogin';
 
 
  const MyContext =  createContext();
 
 function App() {
   const [isToggleSidebar, setsToggleSidebar] = useState(false);
-
+  const { isAuthenticated, loading } = useContext(AuthContext);// Access loading state
   const values = {
     isToggleSidebar,
     setsToggleSidebar
   }
 
-
+// ✅ ProtectedRoute with proper loading and auth check
+const ProtectedRoute = ({ children }) => {
+  if (loading) return <div>Loading...</div>; // Show loading while verifying token
+  return isAuthenticated ? children : <Navigate to="/AdminLogin" />;
+};
 
   return (
     <BrowserRouter>
       <MyContext.Provider value={values}>
-        <Header />
-        <div className='main d-flex'>
-          <div className={`sidebarWrapper ${isToggleSidebar===true ? 'toggle' : ''}`}>
-            <Sidebar />
+        {isAuthenticated && <Header />}       
+        <div className="main d-flex">
+          {isAuthenticated && (
+            <div className={`sidebarWrapper ${isToggleSidebar ? 'toggle' : ''}`}>
+              <Sidebar />
           </div>
+          )}
           <div className={`content ${isToggleSidebar===true ? 'toggle' : ''}`}>
             <Routes>
-              <Route path="/" exact={true} element={<Dashboard />} />
-              <Route path="/dashboard" exact={true} element={<Dashboard />} />
-              <Route path="/OrderPages" exact={true} element={<OrderPages />} />
-              <Route path="/Alluser" exact={true} element={<Alluser />} />
-              <Route path="/addproduct" exact={true} element={<Addproduct/>} />
-            <Route path="/productlist" exact={true} element={<ProductList/>} />
-            <Route path="/productdetail" exact={true} element={<ProductDetail/>} />
-            <Route path="/totalstocks" exact={true} element={<TotalStocks/>} />              
+            <Route path="/AdminLogin" element={!isAuthenticated ? <AdminLogin /> : <Navigate to="/dashboard" />} />
+            <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+              <Route path="/OrderPages" element={<ProtectedRoute><OrderPages /></ProtectedRoute>} />
+              <Route path="/Alluser" element={<ProtectedRoute><Alluser /></ProtectedRoute>} />
+              <Route path="/addproduct" element={<ProtectedRoute><Addproduct /></ProtectedRoute>} />
+              <Route path="/productlist" element={<ProtectedRoute><ProductList /></ProtectedRoute>} />
+              <Route path="/productdetail" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
+              <Route path="/totalstocks" element={<ProtectedRoute><TotalStocks /></ProtectedRoute>} />
+              <Route path="/notification" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+              <Route path="/PaymentTransactions" element={<ProtectedRoute><PaymentTransactions /></ProtectedRoute>} />
+              <Route path="/invoice" element={<ProtectedRoute><InvoiceBilling /></ProtectedRoute>} />
+              <Route path="/return" element={<ProtectedRoute><Return /></ProtectedRoute>} />
+              <Route path="/addattribute" element={<ProtectedRoute><AddAttribute /></ProtectedRoute>} />
+              <Route path="/attributepage" element={<ProtectedRoute><AttributePage /></ProtectedRoute>} />
+              <Route path="/setting" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+              <Route path="/salesreports" element={<ProtectedRoute><SalesReports /></ProtectedRoute>} />
+              <Route path="/bestselling" element={<ProtectedRoute><BestSellingProducts /></ProtectedRoute>} />
+             <Route path="/customerprofile" exact={true} element={<ProtectedRoute><CustomerProfile/></ProtectedRoute>} />
+             <Route path="/register" exact={true} element={<ProtectedRoute><SignupForm/></ProtectedRoute>} />
+
 
 
 
             </Routes>
-      </div>
-      </div>
+          </div>
+        </div>
       </MyContext.Provider>
-
     </BrowserRouter>
-  )
+  );
 }
 
 export default App;
-export {MyContext}
+export { MyContext };
