@@ -114,15 +114,15 @@ const BestSellingProducts = () => {
 
             <div className="products-grid">
                 {products.map(product => (
-                    <div key={product.id} className="product-card">
+                    <div key={product.id} className="product1-card">
                         <img 
                             src={product.image} 
                             alt={product.name}
-                            className="product-image"
+                            className="product1-image"
                         />
-                        <div className="product-info">
-                            <h3 className="product-title">{product.name}</h3>
-                            <div className="product-stats">
+                        <div className="product1-info">
+                            <h3 className="product1-title">{product.name}</h3>
+                            <div className="product1-stats">
                                 <div className="stat-item">
                                     <div className="stat-label">Price</div>
                                     <div className="stat-value">${product.price}</div>

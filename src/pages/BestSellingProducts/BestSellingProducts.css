@@ -52,18 +52,18 @@
     margin-bottom: 40px;
 }
 
-.product-card {
+.product1-card {
     padding: 20px;
     border: 1px solid #eee;
     border-radius: 8px;
     transition: transform 0.2s ease;
 }
 
-.product-card:hover {
+.product1-card:hover {
     transform: translateY(-5px);
 }
 
-.product-image {
+.product1-image {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -71,18 +71,18 @@
     margin-bottom: 15px;
 }
 
-.product-info {
+.product1-info {
     margin-top: 15px;
 }
 
-.product-title {
+.product1-title {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 10px;
     color: #333;
 }
 
-.product-stats {
+.product1-stats {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;

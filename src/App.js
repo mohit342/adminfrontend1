@@ -1,6 +1,7 @@
 
 import { BrowserRouter, Route, Routes,Navigate } from 'react-router-dom';
 import './App.css';
+import { createContext, useState, useContext } from 'react';
 import Dashboard from './pages/Dashboard';
 import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,15 +13,14 @@ import ProductList from './pages/ProductList/ProductList';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import TotalStocks from './pages/TotalStocks/TotalStocks';
 import OrderPages from './pages/Orderpages/Orderpages';
-import Alluser from './pages/User/Alluser';
-import {  createContext, useEffect, useState ,useContext} from 'react';
+
+import Alluser from './pages/User/Alluser/Alluser';
 import Notifications from './pages/Notification/Notification';
 import PaymentTransactions from './pages/Payment/PaymentTransactions';
 import InvoiceBilling from './pages/InvoiceBilling/InvoiceBilling';
 import Return from './pages/Return/Return';
 import AddAttribute from './pages/AddAttribute/AddAttribute';
 import AttributePage from './pages/AttributePage/AttributePage';
-import SignupForm from './pages/Register/SignupForm';
 import SettingsPage from './pages/SettingsPage/SettingsPage';
 import SalesReports from './pages/SalesReports/SalesReports';
 import BestSellingProducts from './pages/BestSellingProducts/BestSellingProducts';
@@ -81,13 +81,12 @@ const ProtectedRoute = ({ children }) => {
 
 
             </Routes>
-      </div>
-      </div>
+          </div>
+        </div>
       </MyContext.Provider>
-
     </BrowserRouter>
   );
 }
 
 export default App;
-export {MyContext}
+export { MyContext };

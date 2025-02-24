@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { ShoppingCart, Minus, Plus,  Truck, Shield, RefreshCw, Package } from 'lucide-react';
+import { ShoppingCart, Minus, Plus, Truck, Shield, RefreshCw, Package } from 'lucide-react';
 import "./ProductDetail.css"
+
 const ProductDetail = () => {
     const [selectedSize, setSelectedSize] = useState('M');
     const [quantity, setQuantity] = useState(1);
@@ -20,7 +21,6 @@ const ProductDetail = () => {
       ],
       features: [
         { icon: <Truck size={20} />, text: "Free shipping " },
-        
         { icon: <RefreshCw size={20} />, text: "30-day returns" },
         { icon: <Package size={20} />, text: "Secure packaging" }
       ]
@@ -28,73 +28,57 @@ const ProductDetail = () => {
   
   return (
     <>
-    
-    <div className="product-container">
-    <div className="product-grid">
-      <div className="image-gallery">
+    <div className="product-container15">
+    <div className="product-grid15">
+      <div className="image-gallery15">
         <img 
           src={product.images[mainImage]} 
           alt={product.name} 
-          className="main-image"
+          className="main-image15"
         />
-        <div className="thumbnail-container">
+        <div className="thumbnail-container15">
           {product.images.map((image, index) => (
             <img
               key={index}
               src={image}
               alt={`${product.name} view ${index + 1}`}
-              className={`thumbnail ${mainImage === index ? 'active' : ''}`}
+              className={`thumbnail15 ${mainImage === index ? 'active15' : ''}`}
               onClick={() => setMainImage(index)}
             />
           ))}
         </div>
       </div>
 
-      <div className="product-info">
-        <div className="product-category">{product.category}</div>
-        <h1 className="product-title">{product.name}</h1>
-        <div className="product-price">{product.price}</div>
-        <p className="product-description">{product.description}</p>
+      <div className="product-info15">
+        <div className="product-category15">{product.category}</div>
+        <h1 className="product-title15">{product.name}</h1>
+        <div className="product-price15">{product.price}</div>
+        <p className="product-description15">{product.description}</p>
 
-        {/* <div className="size-selector">
-          <label className="size-label">Select Size</label>
-          <div className="size-options">
-            {product.sizes.map((size) => (
-              <button
-                key={size}
-                className={`size-button ${selectedSize === size ? 'active' : ''}`}
-                onClick={() => setSelectedSize(size)}
-              >
-                {size}
-              </button>
-            ))}
-          </div>
-        </div> */}
-
-        <div className="quantity-selector">
+        <div className="quantity-selector15">
           <button 
-            className="quantity-button"
+            className="quantity-button15"
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
           >
             <Minus size={20} />
           </button>
-          <span className="quantity-display">{quantity}</span>
+          <span className="quantity-display15">{quantity}</span>
           <button 
-            className="quantity-button"
+            className="quantity-button15"
             onClick={() => setQuantity(quantity + 1)}
           >
             <Plus size={20} />
           </button>
         </div>
 
-        <button className="add-to-cart">
+        <button className="add-to-cart15">
           <ShoppingCart size={20} />
           Add to Cart
         </button>
 
-        <div className="features-list">
+        <div className="features-list15">
           {product.features.map((feature, index) => (
-            <div key={index} className="feature-item">
+            <div key={index} className="feature-item15">
               {feature.icon}
               <span>{feature.text}</span>
             </div>
@@ -102,9 +86,9 @@ const ProductDetail = () => {
         </div>
       </div>
     </div>
-    
   </div>
-  </>)
+  </>
+  )
 }
 
 export default ProductDetail
