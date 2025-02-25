@@ -1,108 +1,106 @@
-import React, { useState } from 'react';
-import { Eye, Pencil, Trash2 } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
 import './Alluser.css';
 
 const Alluser = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'Kristin',
-      role:'SE',
-      phone: '9765241837',
-      email: 'kristin@gmail.com',
-      address:'b124,mittsure,jaipur',
-      joiningDate:'24-02-2024',
-      
-    },
-    {
-        id: 1,
-        name: 'Prerna',
-        role:'School',
-        phone: '7896541236',
-        email: 'prerna@gmail.com',
-        address:'b124,mittsure,jaipur',
-        joiningDate:'24-02-2024',
-        
-      },
-      {
-        id: 1,
-        name: 'mohit',
-        role:'Student',
-        phone: '9765285263',
-        email: 'mohit@gmail.com',
-        address:'b124,mittsure,jaipur',
-        joiningDate:'24-02-2024',
-        
-      },
-      {
-        id: 1,
-        name: 'lakshita',
-        role:'School',
-        phone: '9765241837',
-        email: 'lakshita@gmail.com',
-        address:'b124,mittsure,jaipur',
-        joiningDate:'24-02-2024',
-        
-      },
-  ]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/users');
+      if (!response.ok) throw new Error('Failed to fetch users');
+      const data = await response.json();
+      setUsers(data);
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
 
   const filteredUsers = users.filter(user =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.role.toLowerCase().includes(searchQuery.toLowerCase()));
+    user.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    user.email?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <div className="error-message">Error: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="container13">
       <div className="header13">
+        <h2 className="title13">All Users</h2>
         <div className="searchContainer13">
           <input
             type="text"
-            placeholder="Search here..."
+            placeholder="Search users..."
             className="searchInput13"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        
       </div>
 
       <div className="table13">
-        <div className="tableHeader13 font-weight-bold">
-          <div>User</div>
-          <div>roles</div>
-          <div>Phone number</div>
+        <div className="tableHeader13">
+          <div>Name</div>
           <div>Email</div>
-          <div>Address</div>
-          <div>joining Date</div>
-          <div>Action</div>
+          <div>Mobile</div>
+          <div>Role</div>
+          <div>School Name</div>
+          <div>SE ID</div>
         </div>
-        
-        {filteredUsers.map(user => (
-          <div key={user.id} className="tableRow13">
-            <div className="userInfo13">
-              <div className="userName13">{user.name}</div>
-              
-            </div>
-            <div>{user.role}</div>
-            <div>{user.phone}</div>
-            <div>{user.email}</div>
-            <div>{user.address}</div>
-            <div>{user.joiningDate}</div>
-            <div className="actionButtons13">
-              <button className="actionButton13 viewButton13">
-                <Eye size={20} />
-              </button>
-              <button className="actionButton13 editButton13">
-                <Pencil size={20} />
-              </button>
-              <button 
-                className="actionButton13 deleteButton13"
-              >
-                <Trash2 size={20} />
-              </button>
-            </div>
-          </div>
-        ))}
+
+        <div className="tableBody13">
+          {loading ? (
+            // Loading skeleton
+            [...Array(5)].map((_, idx) => (
+              <div key={idx} className="tableRow13 skeleton-row">
+                <div className="skeleton"></div>
+                <div className="skeleton"></div>
+                <div className="skeleton"></div>
+                <div className="skeleton"></div>
+                <div className="skeleton"></div>
+                <div className="skeleton"></div>
+              </div>
+            ))
+          ) : filteredUsers.length > 0 ? (
+            filteredUsers.map(user => (
+              <div key={user.id} className="tableRow13">
+                <div>{user.full_name}</div>
+                <div>{user.email}</div>
+                <div>{user.mobile}</div>
+                <div>
+                  <span className="role-badge">{user.role}</span>
+                </div>
+                <div>{user.school_name || '-'}</div>
+                <div>{user.se_employee_id || '-'}</div>
+              </div>
+            ))
+          ) : (
+            <div className="no-data">No users found</div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -1,345 +1,121 @@
-import React, { useState } from 'react';
-import './AttributePage.css';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import "./AttributePage.css";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 
-const AttributePage = () => {
-    const [attributes, setAttributes] = useState([
-        { id: 1, name: 'Color', type: 'select', options: ['Red', 'Blue', 'Green'] },
-        { id: 2, name: 'Size', type: 'select', options: ['S', 'M', 'L'] },
-    ]);
-    
-    const [showAddModal, setShowAddModal] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
-    const [selectedAttribute, setSelectedAttribute] = useState(null);
-    const [error, setError] = useState('');
-    
-    // Add Attribute State
-    const [newAttribute, setNewAttribute] = useState({
-        name: '',
-        type: 'text',
-        options: []
-    });
-    const [newOption, setNewOption] = useState('');
+const AttributesList = () => {
+  const [attributes, setAttributes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    // Edit Attribute State
-    const [editAttribute, setEditAttribute] = useState({
-        name: '',
-        type: 'text',
-        options: []
-    });
-    const [editOption, setEditOption] = useState('');
+  // Fetch attributes when component mounts
+  useEffect(() => {
+    fetchAttributes();
+  }, []);
 
-    const handleAddAttribute = () => {
-        if (!newAttribute.name.trim()) {
-            setError('Attribute name is required');
-            return;
+  // Function to fetch attributes from backend
+  const fetchAttributes = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/attributes');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setAttributes(data.data);
+      setLoading(false);
+    } catch (error) {
+      console.error('Error fetching attributes:', error);
+      setError('Failed to load attributes. Please try again later.');
+      setLoading(false);
+    }
+  };
+
+  // Function to handle delete
+  const handleDelete = async (id) => {
+    if (window.confirm('Are you sure you want to delete this attribute?')) {
+      try {
+        const response = await fetch(`http://localhost:5000/api/attributes/${id}`, {
+          method: 'DELETE',
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
         }
+        
+        // Refresh the attributes list after deletion
+        fetchAttributes();
+      } catch (error) {
+        console.error('Error deleting attribute:', error);
+        setError('Failed to delete attribute. Please try again.');
+      }
+    }
+  };
 
-        if (newAttribute.type === 'select' && newAttribute.options.length === 0) {
-            setError('At least one option is required for select type');
-            return;
-        }
+  // Function to view attribute details
+  const handleView = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/attributes/${id}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      alert(`Category: ${data.data.category}\nValue: ${data.data.value}`);
+    } catch (error) {
+      console.error('Error viewing attribute:', error);
+      setError('Failed to view attribute details.');
+    }
+  };
 
-        const newAttr = {
-            id: attributes.length + 1,
-            ...newAttribute
-        };
+  if (loading) {
+    return <div className="loading">Loading attributes...</div>;
+  }
 
-        setAttributes([...attributes, newAttr]);
-        setShowAddModal(false);
-        resetForm();
-    };
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
-    const handleEditAttribute = () => {
-        if (!editAttribute.name.trim()) {
-            setError('Attribute name is required');
-            return;
-        }
-
-        const updatedAttributes = attributes.map(attr =>
-            attr.id === selectedAttribute.id ? { ...editAttribute, id: selectedAttribute.id } : attr
-        );
-
-        setAttributes(updatedAttributes);
-        setShowEditModal(false);
-        resetForm();
-    };
-
-    const handleDelete = (id) => {
-        const confirmDelete = window.confirm('Are you sure you want to delete this attribute?');
-        if (confirmDelete) {
-            setAttributes(attributes.filter(attr => attr.id !== id));
-        }
-    };
-
-    const resetForm = () => {
-        setNewAttribute({ name: '', type: 'text', options: [] });
-        setEditAttribute({ name: '', type: 'text', options: [] });
-        setNewOption('');
-        setEditOption('');
-        setError('');
-    };
-
-    const openEditModal = (attribute) => {
-        setSelectedAttribute(attribute);
-        setEditAttribute(attribute);
-        setShowEditModal(true);
-    };
-
-    const handleAddOption = (type) => {
-        const option = type === 'add' ? newOption : editOption;
-        const options = type === 'add' ? newAttribute.options : editAttribute.options;
-
-        if (!option.trim()) {
-            setError('Option cannot be empty');
-            return;
-        }
-
-        if (options.includes(option)) {
-            setError('Option already exists');
-            return;
-        }
-
-        if (type === 'add') {
-            setNewAttribute({ ...newAttribute, options: [...newAttribute.options, option] });
-            setNewOption('');
-        } else {
-            setEditAttribute({ ...editAttribute, options: [...editAttribute.options, option] });
-            setEditOption('');
-        }
-        setError('');
-    };
-
-    const handleRemoveOption = (index, type) => {
-        if (type === 'add') {
-            setNewAttribute({
-                ...newAttribute,
-                options: newAttribute.options.filter((_, i) => i !== index)
-            });
-        } else {
-            setEditAttribute({
-                ...editAttribute,
-                options: editAttribute.options.filter((_, i) => i !== index)
-            });
-        }
-    };
-
-    return (
-        <div className="attribute-container">
-            <div className="attribute-header">
-                <h2>Manage Attributes</h2>
-                <button className="btn btn-primary" onClick={() => setShowAddModal(true)}>
-                    Add New Attribute
-                </button>
-            </div>
-
-            <table className="attribute-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Options</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {attributes.map((attribute) => (
-                        <tr key={attribute.id}>
-                            <td>{attribute.id}</td>
-                            <td>{attribute.name}</td>
-                            <td>{attribute.type}</td>
-                            <td>
-                                {attribute.type === 'select' && attribute.options.join(', ')}
-                            </td>
-                            <td>
-                                <button
-                                    className="btn btn-primary"
-                                    onClick={() => openEditModal(attribute)}
-                                >
-                                    <FaEdit />
-                                </button>
-                                <button
-                                    className="btn btn-danger"
-                                    onClick={() => handleDelete(attribute.id)}
-                                >
-                                    <FaTrash />
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-
-            {/* Add Attribute Modal */}
-            {showAddModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <button className="close-button" onClick={() => setShowAddModal(false)}>
-                            &times;
-                        </button>
-                        <h3>Add New Attribute</h3>
-                        {error && <div className="error-message">{error}</div>}
-                        
-                        <div className="form-group">
-                            <label>Attribute Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={newAttribute.name}
-                                onChange={(e) => setNewAttribute({ ...newAttribute, name: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Attribute Type</label>
-                            <select
-                                className="form-control"
-                                value={newAttribute.type}
-                                onChange={(e) => setNewAttribute({ ...newAttribute, type: e.target.value })}
-                            >
-                                <option value="text">Text</option>
-                                <option value="number">Number</option>
-                                <option value="select">Select</option>
-                            </select>
-                        </div>
-
-                        {newAttribute.type === 'select' && (
-                            <div className="form-group">
-                                <label>Add Options</label>
-                                <div className="option-item">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={newOption}
-                                        onChange={(e) => setNewOption(e.target.value)}
-                                        placeholder="Enter option"
-                                    />
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={() => handleAddOption('add')}
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-
-                                {newAttribute.options.map((option, index) => (
-                                    <div key={index} className="option-item">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            value={option}
-                                            readOnly
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-danger"
-                                            onClick={() => handleRemoveOption(index, 'add')}
-                                        >
-                                            Remove
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        <button
-                            className="btn btn-success"
-                            style={{ marginTop: '20px' }}
-                            onClick={handleAddAttribute}
-                        >
-                            Add Attribute
-                        </button>
-                    </div>
-                </div>
-            )}
-
-            {/* Edit Attribute Modal */}
-            {showEditModal && (
-                <div className="modal-overlay">
-                    <div className="modal-content">
-                        <button className="close-button" onClick={() => setShowEditModal(false)}>
-                            &times;
-                        </button>
-                        <h3>Edit Attribute</h3>
-                        {error && <div className="error-message">{error}</div>}
-                        
-                        <div className="form-group">
-                            <label>Attribute Name</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                value={editAttribute.name}
-                                onChange={(e) => setEditAttribute({ ...editAttribute, name: e.target.value })}
-                            />
-                        </div>
-
-                        <div className="form-group">
-                            <label>Attribute Type</label>
-                            <select
-                                className="form-control"
-                                value={editAttribute.type}
-                                onChange={(e) => setEditAttribute({ ...editAttribute, type: e.target.value })}
-                            >
-                                <option value="text">Text</option>
-                                <option value="number">Number</option>
-                                <option value="select">Select</option>
-                            </select>
-                        </div>
-
-                        {editAttribute.type === 'select' && (
-                            <div className="form-group">
-                                <label>Add Options</label>
-                                <div className="option-item">
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={editOption}
-                                        onChange={(e) => setEditOption(e.target.value)}
-                                        placeholder="Enter option"
-                                    />
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={() => handleAddOption('edit')}
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-
-                                {editAttribute.options.map((option, index) => (
-                                    <div key={index} className="option-item">
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            value={option}
-                                            readOnly
-                                        />
-                                        <button
-                                            type="button"
-                                            className="btn btn-danger"
-                                            onClick={() => handleRemoveOption(index, 'edit')}
-                                        >
-                                            Remove
-                                        </button>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-
-                        <button
-                            className="btn btn-success"
-                            style={{ marginTop: '20px' }}
-                            onClick={handleEditAttribute}
-                        >
-                            Update Attribute
-                        </button>
-                    </div>
-                </div>
-            )}
-        </div>
-    );
+  return (
+    <div className="attributes-container50">
+      <h2 className="title">Attributes List</h2>
+      {attributes.length === 0 ? (
+        <p className="no-attributes">No attributes found. Please add some attributes.</p>
+      ) : (
+        <table className="attributes-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Value</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {attributes.map((attr) => (
+              <tr key={attr.id}>
+                <td>{attr.category}</td>
+                <td>{attr.value}</td>
+                <td className="actions">
+                  <FaEye 
+                    className="icon view" 
+                    title="View" 
+                    onClick={() => handleView(attr.id)}
+                  />
+                  <FaEdit 
+                    className="icon edit" 
+                    title="Edit" 
+                    onClick={() => window.location.href = `/edit-attribute/${attr.id}`}
+                  />
+                  <FaTrash 
+                    className="icon delete" 
+                    title="Delete" 
+                    onClick={() => handleDelete(attr.id)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
 };
 
-export default AttributePage;
+export default AttributesList;

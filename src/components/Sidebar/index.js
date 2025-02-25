@@ -74,8 +74,8 @@ const Sidebar = () => {
                         </Button>
                         <div className={`submenuWrapper ${activeTab===2 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
-                                <li><Link to="/register">Add Category</Link></li>
-                                <li><Link to="#">Category List</Link></li>
+                                <li><Link to="/add-category">Add Category</Link></li>
+                                <li><Link to="/category-list">Category List</Link></li>
                              
 
                             </ul>
@@ -119,7 +119,7 @@ const Sidebar = () => {
                         </Button>
                         <div className={`submenuWrapper ${activeTab===5 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
-                                <li><Link to="#">Create coupons for School</Link></li>
+                                <li><Link to="/couponschool">Create coupons for School</Link></li>
                                 <li><Link to="#">Manage Rewards for School</Link></li>
                                 <li><Link to="#">Create coupons for Students</Link></li>
                                 <li><Link to="#">Manage Rewards for SE</Link></li>

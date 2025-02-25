@@ -1,0 +1,53 @@
+.category-list-container115 {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+   
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  } 
+  
+  /* Category List Styling */
+  .category-list115 {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .category-item115 {
+    padding: 10px;
+    background: #929497;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .subcategory-list115 {
+    list-style: none;
+    padding-left: 20px;
+  }
+  
+  .subcategory-item115 {
+    background: #f8f9fa;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 5px 0;
+  }
+  
+  .subsubcategory-list115 {
+    list-style: none;
+    padding-left: 20px;
+  }
+  
+  .subsubcategory-item115 {
+    background: #e9ecef;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 3px 0;
+  }
+  

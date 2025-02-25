@@ -1,207 +1,349 @@
-import React, { useState,useEffect } from 'react';
-import "./Addproduct.css"
+import React, { useState, useEffect } from 'react';
+import { Upload } from 'lucide-react';
+import './Addproduct.css';
+
 const Addproduct = () => {
-    const [productData, setProductData] = useState({
-        name: '',
-        description: '',
-        price: '',
-        category: '',
-        subcategory: '',
-        images: [],
-        stock: ''
-      });
-    
-      const [previewUrls, setPreviewUrls] = useState([]);
-      const [errors, setErrors] = useState({});
-      const [successMessage, setSuccessMessage] = useState('');
-    
-      const categories = {
-        'Academic Materials': ['Textbooks & Workbooks', 'Reference Books', 'Educational software & Apps'],
-        'School Supplies ': ['Stationery', 'Classroom Supplies'],
-        'Learning & Teaching Aids': ['Maniplative'],
-        'Toys & games': ['educational Toys', 'toy & games'],
-        'Play School Supplies ': ['Furniture', 'Learning Materials']
-      };
-    
-      useEffect(() => {
-        return () => {
-          // Clean up object URLs
-          previewUrls.forEach(url => URL.revokeObjectURL(url));
-        };
-      }, [previewUrls]);
-    
-      const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setProductData(prev => ({
-          ...prev,
-          [name]: value,
-          ...(name === 'category' && { subcategory: '' }) // Reset subcategory when category changes
-        }));
-      };
-    
-      const handleImageUpload = (e) => {
-        const files = Array.from(e.target.files);
-        const urls = files.map(file => URL.createObjectURL(file));
-        
-        setProductData(prev => ({
-          ...prev,
-          images: [...prev.images, ...files]
-        }));
-        
-        setPreviewUrls(prev => [...prev, ...urls]);
-      };
-    
-      const removeImage = (index) => {
-        const newImages = [...productData.images];
-        const newUrls = [...previewUrls];
-        
-        newImages.splice(index, 1);
-        newUrls.splice(index, 1);
-        
-        setProductData(prev => ({ ...prev, images: newImages }));
-        setPreviewUrls(newUrls);
-      };
-    
-      const validateForm = () => {
-        const newErrors = {};
-        if (!productData.name.trim()) newErrors.name = 'Product name is required';
-        if (!productData.description.trim()) newErrors.description = 'Description is required';
-        if (!productData.price || isNaN(productData.price)) newErrors.price = 'Valid price is required';
-        if (!productData.category) newErrors.category = 'Category is required';
-        if (productData.category && !productData.subcategory) newErrors.subcategory = 'Subcategory is required';
-        if (productData.images.length === 0) newErrors.images = 'At least one image is required';
-        
-        setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
-      };
-    
-      const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (validateForm()) {
-          try {
-            console.log('Product data:', productData);
-            setSuccessMessage('Product added successfully!');
-            setProductData({
-              name: '',
-              description: '',
-              price: '',
-              category: '',
-              subcategory: '',
-              images: [],
-              stock: ''
-            });
-            setPreviewUrls([]);
-          } catch (error) {
-            console.error('Error adding product:', error);
-            setErrors({ submit: 'Failed to add product. Please try again.' });
-          }
+  const [formData, setFormData] = useState({
+    name: '',
+    slug: '',
+    shortDescription: '',
+    description: '',
+    price: '',
+    stockQuantity: '',
+    categoryId: '',
+    subcategoryId: '',
+    subSubcategoryId: '',
+    selectedAttributes: [],
+    images: []
+  });
+
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
+  const [subSubcategories, setSubSubcategories] = useState([]);
+  const [attributes, setAttributes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  useEffect(() => {
+    fetchCategories();
+    fetchAttributes();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/categories');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success) {
+        setCategories(data.data);
+      } else {
+        setError('Failed to fetch categories');
+      }
+    } catch (error) {
+      setError('Error fetching categories: ' + error.message);
+      console.error('Error details:', error);
+    }
+  };
+
+  const fetchAttributes = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/attributes');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      if (data.success) {
+        setAttributes(data.data);
+      } else {
+        setError('Failed to fetch attributes');
+      }
+    } catch (error) {
+      setError('Error fetching attributes: ' + error.message);
+      console.error('Error details:', error);
+    }
+  };
+
+  const handleCategoryChange = (e) => {
+    const categoryId = e.target.value;
+    const category = categories.find(c => c.id === parseInt(categoryId));
+    setFormData({
+      ...formData,
+      categoryId,
+      subcategoryId: '',
+      subSubcategoryId: ''
+    });
+    setSubcategories(category ? category.subcategories : []);
+    setSubSubcategories([]);
+  };
+
+  const handleSubcategoryChange = (e) => {
+    const subcategoryId = e.target.value;
+    const subcategory = subcategories.find(s => s.id === parseInt(subcategoryId));
+    setFormData({
+      ...formData,
+      subcategoryId,
+      subSubcategoryId: ''
+    });
+    setSubSubcategories(subcategory ? subcategory.subSubcategories : []);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    setSuccess('');
+
+    try {
+      const formDataToSend = new FormData();
+
+      // Append all form fields
+      Object.keys(formData).forEach(key => {
+        if (key === 'images') {
+          formData.images.forEach(image => {
+            formDataToSend.append('images', image);
+          });
+        } else if (key === 'selectedAttributes') {
+          formDataToSend.append('selectedAttributes', JSON.stringify(formData.selectedAttributes || []));
+        }  else {
+          formDataToSend.append(key, formData[key] || '');
         }
-      };
-    
-      return (
-        <div className="add-product-container">
-          <h2 className="add-product-title">Add New Product</h2>
-          <form onSubmit={handleSubmit} className="add-product-form">
-            {successMessage && (
-              <div className="success-message">{successMessage}</div>
-            )}
-            {errors.submit && (
-              <div className="error-message">{errors.submit}</div>
-            )}
-    
+      });
+
+      const response = await fetch('http://localhost:5000/api/products', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSuccess('Product added successfully!');
+        setFormData({
+          name: '',
+          slug: '',
+          shortDescription: '',
+          description: '',
+          price: '',
+          stockQuantity: '',
+          categoryId: '',
+          subcategoryId: '',
+          subSubcategoryId: '',
+          selectedAttributes: [],
+          images: []
+        });
+      } else {
+        setError(data.message || 'Failed to add product');
+      }
+    } catch (error) {
+      setError('Error adding product: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    setFormData({ ...formData, images: [...formData.images, ...files] });
+  };
+
+  return (
+    <div className="add-product-container">
+      <h1 className="page-title">Add New Product</h1>
+
+      {error && (
+        <div className="alert alert-error">
+          {error}
+        </div>
+      )}
+
+      {success && (
+        <div className="alert alert-success">
+          {success}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="product-form">
+        <div className="form-grid">
+          <div className="form-section">
             <div className="form-group">
               <label className="form-label">Product Name</label>
               <input
                 type="text"
-                className={`form-input ${errors.name ? 'input-error' : ''}`}
-                name="name"
-                value={productData.name}
-                onChange={handleInputChange}
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="form-input"
+                required
               />
-              {errors.name && <span className="error-text">{errors.name}</span>}
             </div>
-            <div className="form-group half-width">
-            <label className="form-label">Price</label>
-            <input
-              type="number"
-              className={`form-input ${errors.price ? 'input-error' : ''}`}
-              name="price"
-              value={productData.price}
-              onChange={handleInputChange}
-              step="0.01"
-            />
-            {errors.price && <span className="error-text">{errors.price}</span>}
-          </div>
-    
+
             <div className="form-group">
-              <label className="form-label">Description</label>
-              <textarea
-                className={`form-input ${errors.description ? 'input-error' : ''}`}
-                name="description"
-                value={productData.description}
-                onChange={handleInputChange}
-                rows="4"
+              <label className="form-label">Slug</label>
+              <input
+                type="text"
+                value={formData.slug}
+                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                className="form-input"
+                required
               />
-              {errors.description && <span className="error-text">{errors.description}</span>}
             </div>
-    
-            <div className="form-row">
-          <div className="form-group half-width">
-            <label className="form-label">Category</label>
-            <select
-              className={`form-select ${errors.category ? 'input-error' : ''}`}
-              name="category"
-              value={productData.category}
-              onChange={handleInputChange}
-            >
-              <option value="">Select Category</option>
-              {Object.keys(categories).map(category => (
-                <option key={category} value={category}>{category}</option>
-              ))}
-            </select>
-            {errors.category && <span className="error-text">{errors.category}</span>}
+
+            <div className="form-group">
+              <label className="form-label">Price</label>
+              <input
+                type="number"
+                value={formData.price}
+                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                className="form-input"
+                required
+                min="0"
+                step="0.01"
+              />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Stock Quantity</label>
+              <input
+                type="number"
+                value={formData.stockQuantity}
+                onChange={(e) => setFormData({ ...formData, stockQuantity: e.target.value })}
+                className="form-input"
+                required
+                min="0"
+              />
+            </div>
           </div>
 
-          <div className="form-group half-width">
-            <label className="form-label">Subcategory</label>
-            <select
-              className={`form-select ${errors.subcategory ? 'input-error' : ''}`}
-              name="subcategory"
-              value={productData.subcategory}
-              onChange={handleInputChange}
-              disabled={!productData.category}
-            >
-              <option value="">Select Subcategory</option>
-              {productData.category && categories[productData.category].map(sub => (
-                <option key={sub} value={sub}>{sub}</option>
-              ))}
-            </select>
-            {errors.subcategory && <span className="error-text">{errors.subcategory}</span>}
+          <div className="form-section">
+            <div className="form-group">
+              <label className="form-label">Category</label>
+              <select
+                value={formData.categoryId}
+                onChange={handleCategoryChange}
+                className="form-select"
+                required
+              >
+                <option value="">Select Category</option>
+                {categories.map(category => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Subcategory</label>
+              <select
+                value={formData.subcategoryId}
+                onChange={handleSubcategoryChange}
+                className="form-select"
+                disabled={!formData.categoryId}
+              >
+                <option value="">Select Subcategory</option>
+                {subcategories.map(subcategory => (
+                  <option key={subcategory.id} value={subcategory.id}>
+                    {subcategory.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Sub-subcategory</label>
+              <select
+                value={formData.subSubcategoryId}
+                onChange={(e) => setFormData({ ...formData, subSubcategoryId: e.target.value })}
+                className="form-select"
+                disabled={!formData.subcategoryId}
+              >
+                <option value="">Select Sub-subcategory</option>
+                {subSubcategories.map(subSubcategory => (
+                  <option key={subSubcategory.id} value={subSubcategory.id}>
+                    {subSubcategory.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+{/* 
+            {<div className="form-group">
+              <label className="form-label">Attributes</label>
+              <select
+                multiple
+                value={formData.selectedAttributes}
+                onChange={(e) => {
+                  const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+                  setFormData({ ...formData, selectedAttributes: selectedOptions });
+                }}
+                className="form-select"
+              >
+                {attributes.map((attr) => (
+                  <option key={attr.id} value={attr.value}>
+                    {attr.category} - {attr.value}
+                  </option>
+                ))}
+              </select>
+            </div> } */}
+
+
           </div>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Short Description</label>
+          <textarea
+            value={formData.shortDescription}
+            onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
+            className="form-textarea"
+            rows="2"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Full Description</label>
+          <textarea
+            value={formData.description}
+            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+            className="form-textarea"
+            rows="4"
+            required
+          />
         </div>
 
         <div className="form-group">
           <label className="form-label">Product Images</label>
           <div className="image-upload-container">
-            <label className="file-input-label">
-              <input
-                type="file"
-                className="file-input"
-                onChange={handleImageUpload}
-                multiple
-                accept="image/*"
-              />
-              <span className="upload-button">+ Upload Images</span>
-            </label>
-            
-            <div className="image-previews">
-              {previewUrls.map((url, index) => (
-                <div key={url} className="image-preview">
-                  <img src={url} alt={`Preview ${index}`} />
+            <div className="upload-area">
+              <label className="upload-icon">
+                <Upload size={32} />
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: 'none' }}
+                />
+              </label>
+            </div>
+            <div className="image-grid">
+              {formData.images.map((image, index) => (
+                <div key={index} className="image-preview">
+                  <img
+                    src={URL.createObjectURL(image)}
+                    alt={`Product ${index + 1}`}
+                    className="preview-image"
+                  />
                   <button
                     type="button"
-                    className="delete-image-button"
-                    onClick={() => removeImage(index)}
+                    onClick={() => {
+                      const newImages = [...formData.images];
+                      newImages.splice(index, 1);
+                      setFormData({ ...formData, images: newImages });
+                    }}
+                    className="remove-image"
                   >
                     ×
                   </button>
@@ -209,26 +351,18 @@ const Addproduct = () => {
               ))}
             </div>
           </div>
-          {errors.images && <span className="error-text">{errors.images}</span>}
         </div>
-    
-            <div className="form-group">
-              <label className="form-label">Stock Quantity</label>
-              <input
-                type="number"
-                className="form-input"
-                name="stock"
-                value={productData.stock}
-                onChange={handleInputChange}
-              />
-            </div>
-    
-            <button type="submit" className="submit-button">
-              Add Product
-            </button>
-          </form>
-        </div>
-      );
-}
 
-export default Addproduct
+        <button
+          type="submit"
+          disabled={loading}
+          className="submit-button"
+        >
+          {loading ? 'Adding Product...' : 'Add Product'}
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default Addproduct;

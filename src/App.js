@@ -26,6 +26,10 @@ import SalesReports from './pages/SalesReports/SalesReports';
 import BestSellingProducts from './pages/BestSellingProducts/BestSellingProducts';
 import CustomerProfile from './pages/CustomerProfile/CustomerProfile';
 import AdminLogin from './components/AdminLogin/AdminLogin';
+import AddCategory from './pages/Category/AddCategory';
+import CategoryList from './pages/Category/CategoryList';
+import EditProduct from './pages/ProductList/EditProduct';
+import CouponGenerator from './pages/Coupon/CouponGenerator';
 
 
  const MyContext =  createContext();
@@ -63,7 +67,7 @@ const ProtectedRoute = ({ children }) => {
               <Route path="/Alluser" element={<ProtectedRoute><Alluser /></ProtectedRoute>} />
               <Route path="/addproduct" element={<ProtectedRoute><Addproduct /></ProtectedRoute>} />
               <Route path="/productlist" element={<ProtectedRoute><ProductList /></ProtectedRoute>} />
-              <Route path="/productdetail" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
+              <Route path="/productdetail/:id" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
               <Route path="/totalstocks" element={<ProtectedRoute><TotalStocks /></ProtectedRoute>} />
               <Route path="/notification" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/PaymentTransactions" element={<ProtectedRoute><PaymentTransactions /></ProtectedRoute>} />
@@ -75,7 +79,14 @@ const ProtectedRoute = ({ children }) => {
               <Route path="/salesreports" element={<ProtectedRoute><SalesReports /></ProtectedRoute>} />
               <Route path="/bestselling" element={<ProtectedRoute><BestSellingProducts /></ProtectedRoute>} />
              <Route path="/customerprofile" exact={true} element={<ProtectedRoute><CustomerProfile/></ProtectedRoute>} />
-             <Route path="/register" exact={true} element={<ProtectedRoute><SignupForm/></ProtectedRoute>} />
+             <Route path="/add-category" element={<ProtectedRoute><AddCategory/></ProtectedRoute>}/>
+             <Route path="/category-list" element={<ProtectedRoute><CategoryList/></ProtectedRoute>}/>
+             <Route path="/edit-product/:id" element={<ProtectedRoute><EditProduct /></ProtectedRoute>}/>
+             <Route path="/couponschool" element={<ProtectedRoute><CouponGenerator/></ProtectedRoute>}/>
+
+
+             
+             
 
 
 

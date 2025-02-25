@@ -18,7 +18,7 @@
     justify-content: flex-start;
     align-items: center;
     position: fixed;
-    background: url('E:\mittshop\adminFrontend\src\assets\images\pink-laptop-with-pink-cart-it.jpg.jpeg') no-repeat center center/cover;
+    background: url('../../assets/images/pink-laptop-with-pink-cart-it.jpg') no-repeat center center/cover;
     padding: 1rem;
     overflow: hidden !important;
   }
@@ -89,9 +89,4 @@
   
   .login-image {
     display: none; /* Placeholder if you decide to add a separate image div */
-<<<<<<< HEAD
   }
-=======
-  }
-  
->>>>>>> 565fb040a8a2d3c7b112088d727ff2dad7ae2760
