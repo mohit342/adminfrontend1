@@ -22,6 +22,14 @@
     padding: 1rem;
     overflow: hidden !important;
   }
+  .logo133 {
+    width: 320px;
+    margin-bottom: 8%;
+    border-radius: 8px;
+    background-color: inherit; /* Inherit background color from parent */
+    background: inherit; /* Ensure background matches the body or parent element */
+}
+
   
   .login-form {
     margin-left: 22%;

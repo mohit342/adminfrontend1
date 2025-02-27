@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import './adminLogin.css'; // Updated CSS import
+import './adminLogin.css'; 
+import logo from "../../assets/images/logo.png";
 
 const AdminLogin = () => { // Updated component name
   const [username, setUsername] = useState('');
@@ -38,7 +39,8 @@ const AdminLogin = () => { // Updated component name
   return (
     <div className="login-container"> {/* Updated class name */}
       <div className="login-form"> {/* Updated class name */}
-        <h1>Admin Login</h1>
+        <h2>Welcome to Admin </h2>
+         <img src={logo} alt="Logo" className="logo133" />
         <form onSubmit={handleLogin}>
           <div>
             <label>Username:</label>

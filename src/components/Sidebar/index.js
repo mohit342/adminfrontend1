@@ -26,6 +26,7 @@ const Sidebar = () => {
     const { AdminLogout } = useContext(AuthContext);  //login
     const [activeTab, setActiveTab ] = useState(0);
     const [isToggleSubmenu, setIsToggleSubmenu ] = useState(false);
+    const [activeCouponSubmenu, setActiveCouponSubmenu] = useState(false);
 
     const context = useContext(MyContext);
    
@@ -33,7 +34,9 @@ const Sidebar = () => {
         setActiveTab(index);
         setIsToggleSubmenu(!isToggleSubmenu);
     }
-
+    const toggleCouponSubmenu = () => {
+        setActiveCouponSubmenu(prev => !prev);
+    };
 
     return (
         <>
@@ -112,20 +115,42 @@ const Sidebar = () => {
                         </div>
                     </li>
                     <li>
-                    <Button className={`w-100 ${activeTab===5 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(5)}>
-                            <span className='icon'><GiMoneyStack /></span>
-                            coupons & Rewards
-                            <span className='arrow'><IoIosArrowForward /></span>
-                        </Button>
-                        <div className={`submenuWrapper ${activeTab===5 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
-                            <ul className='submenu'>
-                                <li><Link to="/couponschool">Create coupons for School</Link></li>
-                                <li><Link to="#">Manage Rewards for School</Link></li>
-                                <li><Link to="#">Create coupons for Students</Link></li>
-                                <li><Link to="#">Manage Rewards for SE</Link></li>
-                            </ul>
-                        </div>
-                    </li>
+                    <Button 
+                        className={`w-100 ${activeTab === 5 && isToggleSubmenu ? 'active' : ''}`} 
+                        onClick={() => isOpenSubmenu(5)}
+                    >
+                        <span className='icon'><GiMoneyStack /></span>
+                        Coupons & Rewards
+                        <span className='arrow'><IoIosArrowForward /></span>
+                    </Button>
+                    <div className={`submenuWrapper ${activeTab === 5 && isToggleSubmenu ? 'colapse' : 'colapsed'}`}>
+                        <ul className='submenu'>
+
+                            {/* Create Coupons for School with Subcategories */}
+                            <li>
+                                <Button 
+                                    className={`w-100 ${activeCouponSubmenu ? 'active' : ''}`} 
+                                    onClick={toggleCouponSubmenu}
+                                >
+                                    Create Coupons for School
+                                    <span className='arrow'><IoIosArrowForward /></span>
+                                </Button>
+                                <div className={`submenuWrapper ${activeCouponSubmenu ? 'colapse' : 'colapsed'}`}>
+                                    <ul className='submenu'>
+                                        <li><Link to="/couponschool/a">Category A</Link></li>
+                                        <li><Link to="/couponschool/b">Category B</Link></li>
+                                        <li><Link to="/couponschool/c">Category C</Link></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li><Link to="#">Manage Rewards for School</Link></li>
+                            <li><Link to="#">Create Coupons for Students</Link></li>
+                            <li><Link to="#">Manage Rewards for SE</Link></li>
+                        </ul>
+                    </div>
+                </li>
+            
                     <li>
                     <Button className={`w-100 ${activeTab===6 && isToggleSubmenu===true ? 'active':''}`} onClick={()=>isOpenSubmenu(6)}>
                             <span className='icon'><FaUser /></span>

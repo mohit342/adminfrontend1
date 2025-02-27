@@ -1,182 +1,102 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import "./Orderpages.css";
-import seating4 from "../../assets/images/seating4.jpg";
-import plush2 from "../../assets/images/plush2.jpg";
-import bio1 from "../../assets/images/bio1.jpg";
-
-const orders = [
-  {
-    id: "P021",
-    name: "chair",
-    image: seating4,
-    price: "89,622",
-    quantity: 1038,
-    date: "14/02/2024",
-    status: "Success",
-  },
-  {
-    id: "P001",
-    name: "Science kit",
-    image: bio1,
-    price: "2,07,600",
-    quantity: 2000,
-    date: "04/02/2025",
-    status: "Pending",
-  },
-  {
-    id: "P002",
-    name: "soft toys",
-    image: plush2,
-    price: "1,45,500",
-    quantity: 1638,
-    date: "17/01/2025",
-    status: "Cancel",
-  },
-  {
-    id: "P021",
-    name: "chair",
-    image: seating4,
-    price: "89,622",
-    quantity: 1038,
-    date: "30/01/2025",
-    status: "Success",
-  },
-  {
-    id: "P001",
-    name: "Science kit",
-    image: bio1,
-    price: "2,07,600",
-    quantity: 2000,
-    date: "21/01/2025",
-    status: "Pending",
-  },
-  {
-    id: "P002",
-    name: "soft toys",
-    image: plush2,
-    price: "1,45,500",
-    quantity: 1638,
-    date: "07/02/2025",
-    status: "Cancel",
-  },
-  {
-    id: "P021",
-    name: "chair",
-    image: seating4,
-    price: "89,622",
-    quantity: 1038,
-    date: "02/02/2025",
-    status: "Success",
-  },
-  {
-    id: "P001",
-    name: "Science kit",
-    image: bio1,
-    price: "2,07,600",
-    quantity: 2000,
-    date: "24/01/2025",
-    status: "Pending",
-  },
-  {
-    id: "P002",
-    name: "soft toys",
-    image: plush2,
-    price: "1,45,500",
-    quantity: 1638,
-    date: "04/02/2025",
-    status: "Cancel",
-  },
-  {
-    id: "P021",
-    name: "chair",
-    image: seating4,
-    price: "89,622",
-    quantity: 1038,
-    date: "25/01/2025",
-    status: "Success",
-  },
-  {
-    id: "P001",
-    name: "Science kit",
-    image: bio1,
-    price: "2,07,600",
-    quantity: 2000,
-    date: "06/12/2024",
-    status: "Pending",
-  },
-  {
-    id: "P002",
-    name: "soft toys",
-    image: plush2,
-    price: "1,45,500",
-    quantity: 1638,
-    date: "07/02/2025",
-    status: "Cancel",
-  },
-  
-   
-];
 
 const OrderPages = () => {
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/orders");
+      if (!response.ok) throw new Error("Failed to fetch orders");
+      const data = await response.json();
+      setOrders(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteOrder = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this order?")) return;
+    try {
+      const response = await fetch(`http://localhost:5000/api/orders/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Failed to delete order");
+      setOrders(orders.filter((order) => order.id !== id));
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  if (loading) return <p>Loading orders...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div className="order-container">
       <div className="order-header">
-        <input
-          type="text"
-          placeholder="Search here Product..."
-          className="search-input1"
-        />
+        <input type="text" placeholder="Search Orders..." className="search-input1" />
       </div>
 
       <table className="order-table">
         <thead>
           <tr>
-            <th>Product</th>
             <th>Order ID</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>date</th>
-            <th>Status</th>
-            <th>Action</th>
+            <th>Order Date</th>
+            <th>Customer</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Total</th>
+            <th>Items</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {orders.map((order, index) => (
-            <tr key={index}>
-              <td>
-                <div className="product-info">
-                  <img
-                    src={order.image}
-                    alt={order.name}
-                    className="product-image"
-                  />
-                  {order.name}
-                </div>
-              </td>
-              <td>{order.id}</td>
-              <td>{order.price}</td>
-              <td>{order.quantity}</td>
-              <td>{order.date}</td>
+  {orders.length > 0 ? (
+    orders.map((order) => (
+      <tr key={order.id}>
+        <td>{order.id}</td>
+        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+        <td>{order.fullName}</td>
+        <td>{order.email}</td>
+        <td>
+          {order.address}, {order.city}, {order.state}, {order.pincode}
+        </td>
+        <td>{order.phone}</td>
+        <td>{Number(order.total).toFixed(2)}</td>
+        <td>
+          {Array.isArray(order.items) // ✅ Check if items is an array
+            ? order.items.map((item) => `${item.name} (x${item.quantity})`).join(", ")
+            : JSON.parse(order.items)
+                .map((item) => `${item.name} (x${item.quantity})`)
+                .join(", ")}
+        </td>
+        <td>
+          <div className="action-icons">
+            <Eye className="icon view-icon" />
+            <Pencil className="icon edit-icon" />
+            <Trash2 className="icon delete-icon" onClick={() => deleteOrder(order.id)} />
+          </div>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="9">No orders found</td>
+    </tr>
+  )}
+</tbody>
 
-              {/* Status Button */}
-              <td>
-                <button className={`status ${order.status.toLowerCase()}`}>
-                  {order.status}
-                </button>
-              </td>
 
-              {/* Action Icons */}
-              <td>
-                <div className="action-icons">
-                  <Eye className="icon view-icon" />
-                  <Pencil className="icon edit-icon" />
-                  <Trash2 className="icon delete-icon" />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
       </table>
     </div>
   );

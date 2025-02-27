@@ -233,7 +233,7 @@ header button.rounded-circle:hover svg{
 .logoutWrapper .logoutBox button svg{margin-right: 5px ; font-size: 18px !important;}
 
 /* dashboard start */
-.main .content{width: 80%; flex: 0 0 80%; transition: all 0.3s ;}
+.main .content{width: 80%; flex: 0 0 80%; transition: all 0.3s ;margin-top: 5% !important;}
 .main .content.toggle{width: 100%; flex: 0 0 100%;}
 .right-content{padding: 0px 30px; padding-bottom: 10px; }
 .dashboardBoxWrapper{gap: 20px;width: 100%;flex-wrap: wrap;}
