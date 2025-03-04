@@ -1,0 +1,82 @@
+.superadmin-container {
+    max-width: 1400px;
+    margin: auto;
+    padding: 4px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  
+  .section {
+    background: #f8f9fa;
+    padding: 4px;
+    margin: 4px 0;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 10px;
+  }
+  
+  select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    background: #ccc;
+  }
+  
+  .coupon-details {
+    background: #e9f7ef;
+    padding: 10px;
+    border-left: 5px solid #28a745;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  th {
+    background: #007bff;
+    color: white;
+  }
+  
+  tr:nth-child(even) {
+    background: #f2f2f2;
+  }
+  
+  @media (max-width: 768px) {
+    .superadmin-container {
+      padding: 10px;
+    }
+  
+    table {
+      font-size: 14px;
+    }
+  
+    button {
+      width: 100%;
+    }
+  }
+  
