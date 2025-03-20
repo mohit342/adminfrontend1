@@ -79,7 +79,7 @@ const Header = () => {
                         </div>
 
                         <div className="col-sm-7 d-flex align-items-center justify-content-end part3">
-                            <Button className="rounded-circle mr-3"><CiLight /></Button>
+                            {/* <Button className="rounded-circle mr-3"><CiLight /></Button> */}
                             {/* <Button className="rounded-circle mr-3"><CiMail /></Button> */}
                             {/* <div className='dropdownWrapper position-relative'> */}
                                <Link to="/notification"> <Button className="rounded-circle mr-3" onClick={handleOpenotificationsDrop}><FaBell /></Button></Link>

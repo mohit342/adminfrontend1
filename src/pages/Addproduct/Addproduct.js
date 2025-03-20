@@ -9,6 +9,8 @@ const Addproduct = () => {
     shortDescription: '',
     description: '',
     price: '',
+    discountPercentage: '',
+
     stockQuantity: '',
     categoryId: '',
     subcategoryId: '',
@@ -47,6 +49,24 @@ const Addproduct = () => {
       console.error('Error details:', error);
     }
   };
+  const generateSlug = (name) => {
+    return name
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/[^\w\-]+/g, '')
+      .replace(/\-\-+/g, '-');
+  };
+
+  const handleNameChange = (e) => {
+    const productName = e.target.value;
+    setFormData({
+      ...formData,
+      name: productName,
+      slug: generateSlug(productName)
+    });
+  };
+
 
   const fetchAttributes = async () => {
     try {
@@ -107,7 +127,7 @@ const Addproduct = () => {
           });
         } else if (key === 'selectedAttributes') {
           formDataToSend.append('selectedAttributes', JSON.stringify(formData.selectedAttributes || []));
-        }  else {
+        } else {
           formDataToSend.append(key, formData[key] || '');
         }
       });
@@ -183,8 +203,8 @@ const Addproduct = () => {
               <label className="form-label">Slug</label>
               <input
                 type="text"
-                value={formData.slug}
-                onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                value={formData.name}
+                onChange={handleNameChange}
                 className="form-input"
                 required
               />
@@ -200,6 +220,19 @@ const Addproduct = () => {
                 required
                 min="0"
                 step="0.01"
+              />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Discount Percentage (%)</label>
+              <input
+                type="number"
+                value={formData.discountPercentage}
+                onChange={(e) => setFormData({ ...formData, discountPercentage: e.target.value })}
+                className="form-input"
+                min="0"
+                max="100"
+                step="0.01"
+                placeholder="0"
               />
             </div>
 
@@ -251,6 +284,7 @@ const Addproduct = () => {
               </select>
             </div>
 
+
             <div className="form-group">
               <label className="form-label">Sub-subcategory</label>
               <select
@@ -267,7 +301,7 @@ const Addproduct = () => {
                 ))}
               </select>
             </div>
-{/* 
+            {/* 
             {<div className="form-group">
               <label className="form-label">Attributes</label>
               <select

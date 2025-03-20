@@ -31,7 +31,7 @@ import CategoryList from './pages/Category/CategoryList';
 import EditProduct from './pages/ProductList/EditProduct';
 import CouponGenerator from './pages/Coupon/CouponGenerator';
 import Superadmin from './pages/Coupon/Superadmin';
-
+import SEGeneratedCoupons from './pages/Coupon/SEGeneratedCoupons';
 
  const MyContext =  createContext();
 
@@ -85,6 +85,7 @@ const ProtectedRoute = ({ children }) => {
              <Route path="/edit-product/:id" element={<ProtectedRoute><EditProduct /></ProtectedRoute>}/>
              <Route path="/couponschool" element={<ProtectedRoute><CouponGenerator/></ProtectedRoute>}/>
              <Route path="/couponSE" element={<ProtectedRoute><Superadmin/></ProtectedRoute>}/>
+             <Route path="/totalcoupons" element={<ProtectedRoute><SEGeneratedCoupons/></ProtectedRoute>}/>
 
 
              

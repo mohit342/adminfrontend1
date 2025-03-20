@@ -57,7 +57,7 @@ const OrderPages = () => {
             <th>Phone</th>
             <th>Total</th>
             <th>Items</th>
-            <th>Actions</th>
+            {/* <th>Actions</th> */}
           </tr>
         </thead>
         <tbody>
@@ -80,13 +80,13 @@ const OrderPages = () => {
                 .map((item) => `${item.name} (x${item.quantity})`)
                 .join(", ")}
         </td>
-        <td>
+        {/* <td>
           <div className="action-icons">
             <Eye className="icon view-icon" />
             <Pencil className="icon edit-icon" />
             <Trash2 className="icon delete-icon" onClick={() => deleteOrder(order.id)} />
           </div>
-        </td>
+        </td> */}
       </tr>
     ))
   ) : (

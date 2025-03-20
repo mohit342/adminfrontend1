@@ -10,7 +10,7 @@ import { MdNavigateNext, MdNavigateBefore, MdClose } from "react-icons/md";
 // import Footer from "../../components/Footer/Footer";
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams(); // Changed from 'id' to 'slug'
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
@@ -32,7 +32,7 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/products/${id}`);
+        const response = await axios.get(`http://localhost:5000/api/products/slug/${slug}`);
         const images = response.data.data.images;
         setProduct(response.data.data);
         if (images.length > 0) setSelectedImageIndex(0);
@@ -43,7 +43,7 @@ const ProductDetail = () => {
       }
     };
     fetchProduct();
-  }, [id]);
+  }, [slug]); 
 
   const openModal = (index) => {
     setSelectedImageIndex(index);

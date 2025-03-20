@@ -37,7 +37,7 @@ const EditProduct = () => {
 
       if (response.ok) {
         alert('Product updated successfully');
-        navigate('/product-list');
+        navigate('/productlist');
       } else {
         const errorData = await response.json();
         alert(errorData.message || 'Failed to update product');

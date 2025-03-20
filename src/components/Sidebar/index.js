@@ -24,14 +24,9 @@ import { AuthContext } from '../../context/AuthContext'; // login
 
 const Sidebar = () => {
     const { AdminLogout } = useContext(AuthContext);  //login
-<<<<<<< HEAD
     const [activeTab, setActiveTab ] = useState(0);
     const [isToggleSubmenu, setIsToggleSubmenu ] = useState(false);
-=======
-    const [activeTab, setActiveTab] = useState(0);
-    const [isToggleSubmenu, setIsToggleSubmenu] = useState(false);
->>>>>>> 1f5b493b06eae0549bd8f8173a382770f41620f8
-    
+    const [activeCouponSubmenu, setActiveCouponSubmenu] = useState(false);
 
     const context = useContext(MyContext);
 
@@ -39,12 +34,10 @@ const Sidebar = () => {
         setActiveTab(index);
         setIsToggleSubmenu(!isToggleSubmenu);
     }
-<<<<<<< HEAD
-  
-=======
-    
+    const toggleCouponSubmenu = () => {
+        setActiveCouponSubmenu(prev => !prev);
+    };
 
->>>>>>> 1f5b493b06eae0549bd8f8173a382770f41620f8
     return (
         <>
             <div className="sidebar">
@@ -70,7 +63,7 @@ const Sidebar = () => {
                             <ul className='submenu'>
                                 <li><Link to="/addproduct">Add product</Link></li>
                                 <li><Link to="/productlist">Product List</Link></li>
-                                <li><Link to="/productdetail">Product Detail</Link></li>
+                                {/* <li><Link to="/productdetail">Product Detail</Link></li> */}
 
 
                             </ul>
@@ -122,24 +115,24 @@ const Sidebar = () => {
                         </div>
                     </li>
                     <li>
-                        <Button
-                            className={`w-100 ${activeTab === 5 && isToggleSubmenu ? 'active' : ''}`}
-                            onClick={() => isOpenSubmenu(5)}
-                        >
-                            <span className='icon'><GiMoneyStack /></span>
-                            Coupons & Rewards
-                            <span className='arrow'><IoIosArrowForward /></span>
-                        </Button>
-                        <div className={`submenuWrapper ${activeTab === 5 && isToggleSubmenu ? 'colapse' : 'colapsed'}`}>
+                    <Button 
+                        className={`w-100 ${activeTab === 5 && isToggleSubmenu ? 'active' : ''}`} 
+                        onClick={() => isOpenSubmenu(5)}
+                    >
+                        <span className='icon'><GiMoneyStack /></span>
+                        Coupons & Rewards
+                        <span className='arrow'><IoIosArrowForward /></span>
+                    </Button>
+                    <div className={`submenuWrapper ${activeTab===5 && isToggleSubmenu===true  ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
-                                <li><Link to="/couponSE"> Coupon List </Link></li>
+                                <li><Link to="/totalcoupons">Total Coupons</Link></li>
                                 <li><Link to="#">Manage Rewards for School</Link></li>
-                                <li><Link to="#">Create Coupons for Students</Link></li>
+                                <li><Link to="#">Create coupons for Students</Link></li>
                                 <li><Link to="#">Manage Rewards for SE</Link></li>
                             </ul>
                         </div>
-                    </li>
-
+                </li>
+            
                     <li>
                         <Button className={`w-100 ${activeTab === 6 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(6)}>
                             <span className='icon'><FaUser /></span>

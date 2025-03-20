@@ -1,0 +1,35 @@
+.se-coupons-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .se-coupons-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .se-coupons-table th, 
+  .se-coupons-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .se-coupons-table th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .se-coupons-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .se-coupons-table tr:hover {
+    background-color: #ddd;
+  }
