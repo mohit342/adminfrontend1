@@ -63,7 +63,10 @@ const Sidebar = () => {
                             <ul className='submenu'>
                                 <li><Link to="/addproduct">Add product</Link></li>
                                 <li><Link to="/productlist">Product List</Link></li>
-                                {/* <li><Link to="/productdetail">Product Detail</Link></li> */}
+                                <li><Link to="/Hotdeals">Hot deals</Link></li>
+                                <li><Link to="/AdminHotDealList">AdminHotDealList</Link></li>
+                                <li><Link to="/FeaturedCategories">Featured Categories</Link></li>
+
 
 
                             </ul>
@@ -108,6 +111,7 @@ const Sidebar = () => {
                         <div className={`submenuWrapper ${activeTab === 4 && isToggleSubmenu === true ? 'colapse' : 'colapsed'}`}>
                             <ul className='submenu'>
                                 <li><Link to="/OrderPages">View/Manage all order</Link></li>
+                                <li><Link to="/BulkPage">Bulk  order</Link></li>
                                 <li><Link to="/invoice">Invoice & billing</Link></li>
                                 <li><Link to="/return">Return and refund</Link></li>
 

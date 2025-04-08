@@ -32,6 +32,10 @@ import EditProduct from './pages/ProductList/EditProduct';
 import CouponGenerator from './pages/Coupon/CouponGenerator';
 import Superadmin from './pages/Coupon/Superadmin';
 import SEGeneratedCoupons from './pages/Coupon/SEGeneratedCoupons';
+import BulkPage from './pages/BulkPage/BulkPage';
+import AdminHotDeal from './pages/Hotdeals/AdminHotDeal';
+import AdminHotDealList from './pages/AdminHotDealList/AdminHotDealList';
+import FeaturedCategories from './pages/FeaturedCategories/FeaturedCategories';
 
  const MyContext =  createContext();
 
@@ -86,11 +90,10 @@ const ProtectedRoute = ({ children }) => {
              <Route path="/couponschool" element={<ProtectedRoute><CouponGenerator/></ProtectedRoute>}/>
              <Route path="/couponSE" element={<ProtectedRoute><Superadmin/></ProtectedRoute>}/>
              <Route path="/totalcoupons" element={<ProtectedRoute><SEGeneratedCoupons/></ProtectedRoute>}/>
-
-
-             
-             
-
+             <Route path="/BulkPage" element={<ProtectedRoute><BulkPage/></ProtectedRoute>}/>
+             <Route path="/Hotdeals" element={<ProtectedRoute><AdminHotDeal/></ProtectedRoute>}/>
+             <Route path="/AdminHotDealList" element={<ProtectedRoute><AdminHotDealList/></ProtectedRoute>}/>
+             <Route path="/FeaturedCategories" element={<ProtectedRoute><FeaturedCategories/></ProtectedRoute>}/>
 
 
 
