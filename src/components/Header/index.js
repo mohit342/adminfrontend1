@@ -82,7 +82,7 @@ const Header = () => {
                             {/* <Button className="rounded-circle mr-3"><CiLight /></Button> */}
                             {/* <Button className="rounded-circle mr-3"><CiMail /></Button> */}
                             {/* <div className='dropdownWrapper position-relative'> */}
-                               <Link to="/notification"> <Button className="rounded-circle mr-3" onClick={handleOpenotificationsDrop}><FaBell /></Button></Link>
+                               {/* <Link to="/notification"> <Button className="rounded-circle mr-3" onClick={handleOpenotificationsDrop}><FaBell /></Button></Link> */}
                                 {/* <Menu
                                     anchorEl={isOpennotificationDrop}
                                     className='notifications'

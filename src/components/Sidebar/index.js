@@ -217,13 +217,7 @@ const Sidebar = () => {
                         </div>
                     </li>
 
-                    <li>
-                        <Link to="/notification"> <Button className={`w-100 ${activeTab === 12 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(12)}>
-                            <span className='icon'><RiMessage3Fill /></span>
-                            Notification
-                            {/* <span className='arrow'><IoIosArrowForward /></span> */}
-                        </Button></Link>
-                    </li>
+                   
                     <li>
                         <Link to="/setting"><Button className={`w-100 ${activeTab === 13 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(13)}>
                             <span className='icon'><IoSettings /></span>
