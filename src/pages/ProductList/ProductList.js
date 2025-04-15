@@ -9,8 +9,6 @@ const ProductList = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -62,7 +60,6 @@ const ProductList = () => {
         throw new Error(error.message || 'Failed to delete product');
       }
 
-      // Refresh the products list
       fetchProducts();
     } catch (err) {
       console.error('Error deleting product:', err);
@@ -77,18 +74,18 @@ const ProductList = () => {
   };
 
   if (loading) {
-    return <div className="loading">Loading products...</div>;
+    return <div className="loading123">Loading products...</div>;
   }
 
   if (error) {
-    return <div className="error-message">{error}</div>;
+    return <div className="error-message123">{error}</div>;
   }
 
   return (
-    <div className="product-list-container">
-      <div className="header-section">
+    <div className="product-list-container123">
+      <div className="header-section123">
         <h2>Product List</h2>
-        <div className="search-bar">
+        <div className="search-bar123">
           <input
             type="text"
             placeholder="Search products..."
@@ -98,13 +95,13 @@ const ProductList = () => {
         </div>
       </div>
 
-      <table className="product-table">
+      <table className="product-table123">
         <thead>
           <tr>
             <th>Product</th>
             <th>Product ID</th>
             <th>Price</th>
-            <th>Category</th>
+            
             <th>Stock</th>
             <th>Start Date</th>
             <th>Actions</th>
@@ -114,32 +111,24 @@ const ProductList = () => {
           {filteredProducts.map(product => (
             <tr key={product.id}>
               <td>
-                <div className="product-info">
-                  {product.images && product.images.length > 0 && (
-                    <img
-                      src={`http://localhost:5000${product.images[0]}`}
-                      alt={product.name}
-                      className="product-thumbnail"
-                    />
-                  )}
+                <div className="product-info123">
                   <span>{product.name}</span>
                 </div>
               </td>
               <td>#{product.id}</td>
               <td>₹{parseFloat(product.price).toFixed(2)}</td>
-              <td>{product.category_name}</td>
-
+             
               <td>
-                <span className={`stock-status ${getStockStatus(product.stock).toLowerCase().replace(' ', '-')}`}>
+                <span className={`stock-status123 ${getStockStatus(product.stock).toLowerCase().replace(' ', '-')}`}>
                   {getStockStatus(product.stock)}
                 </span>
               </td>
-              <p> {product.created_at}</p> {/* Display the formatted date */}
+              <td>{product.created_at}</td>
               <td>
-                <button className="edit-btn" onClick={() => handleEdit(product.id)}>Edit</button>
-
-                <button className="delete-btn" onClick={() => handleDelete(product.id)}>Delete</button>
-
+                <div className="action-buttons123">
+                  <button className="edit-btn123" onClick={() => handleEdit(product.id)}>Edit</button>
+                  <button className="delete-btn123" onClick={() => handleDelete(product.id)}>Delete</button>
+                </div>
               </td>
             </tr>
           ))}

@@ -10,7 +10,6 @@ const Addproduct = () => {
     description: '',
     price: '',
     discountPercentage: '',
-
     stockQuantity: '',
     categoryId: '',
     subcategoryId: '',
@@ -49,6 +48,7 @@ const Addproduct = () => {
       console.error('Error details:', error);
     }
   };
+
   const generateSlug = (name) => {
     return name
       .toLowerCase()
@@ -66,7 +66,6 @@ const Addproduct = () => {
       slug: generateSlug(productName)
     });
   };
-
 
   const fetchAttributes = async () => {
     try {
@@ -122,6 +121,9 @@ const Addproduct = () => {
       // Append all form fields
       Object.keys(formData).forEach(key => {
         if (key === 'images') {
+          if (formData.images.length > 50) {
+            throw new Error('Maximum 50 images allowed.');
+          }
           formData.images.forEach(image => {
             formDataToSend.append('images', image);
           });
@@ -166,6 +168,10 @@ const Addproduct = () => {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+    if (files.length + formData.images.length > 50) {
+      setError('Maximum 50 images allowed.');
+      return;
+    }
     setFormData({ ...formData, images: [...formData.images, ...files] });
   };
 
@@ -284,7 +290,6 @@ const Addproduct = () => {
               </select>
             </div>
 
-
             <div className="form-group">
               <label className="form-label">Sub-subcategory</label>
               <select
@@ -301,27 +306,6 @@ const Addproduct = () => {
                 ))}
               </select>
             </div>
-            {/* 
-            {<div className="form-group">
-              <label className="form-label">Attributes</label>
-              <select
-                multiple
-                value={formData.selectedAttributes}
-                onChange={(e) => {
-                  const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-                  setFormData({ ...formData, selectedAttributes: selectedOptions });
-                }}
-                className="form-select"
-              >
-                {attributes.map((attr) => (
-                  <option key={attr.id} value={attr.value}>
-                    {attr.category} - {attr.value}
-                  </option>
-                ))}
-              </select>
-            </div> } */}
-
-
           </div>
         </div>
 
@@ -348,7 +332,7 @@ const Addproduct = () => {
         </div>
 
         <div className="form-group">
-          <label className="form-label">Product Images</label>
+          <label className="form-label">Product Images (Up to 50)</label>
           <div className="image-upload-container">
             <div className="upload-area">
               <label className="upload-icon">

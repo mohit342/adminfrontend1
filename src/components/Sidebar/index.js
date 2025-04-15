@@ -66,6 +66,8 @@ const Sidebar = () => {
                                 <li><Link to="/Hotdeals">Hot deals</Link></li>
                                 <li><Link to="/AdminHotDealList">AdminHotDealList</Link></li>
                                 <li><Link to="/FeaturedCategories">Featured Categories</Link></li>
+                                <li><Link to="/Review">Review data</Link></li>
+
 
 
 

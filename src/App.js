@@ -37,6 +37,7 @@ import AdminHotDeal from './pages/Hotdeals/AdminHotDeal';
 import AdminHotDealList from './pages/AdminHotDealList/AdminHotDealList';
 import FeaturedCategories from './pages/FeaturedCategories/FeaturedCategories';
 
+
  const MyContext =  createContext();
 
 function App() {
@@ -74,6 +75,7 @@ const ProtectedRoute = ({ children }) => {
               <Route path="/productlist" element={<ProtectedRoute><ProductList /></ProtectedRoute>} />
               <Route path="/productdetail/:id" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
               <Route path="/totalstocks" element={<ProtectedRoute><TotalStocks /></ProtectedRoute>} />
+
               <Route path="/notification" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/PaymentTransactions" element={<ProtectedRoute><PaymentTransactions /></ProtectedRoute>} />
               <Route path="/invoice" element={<ProtectedRoute><InvoiceBilling /></ProtectedRoute>} />

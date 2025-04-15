@@ -1,0 +1,84 @@
+/* Review.css */
+.admin-reviews-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+  }
+  
+  .reviews-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .reviews-table th,
+  .reviews-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .reviews-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .edit-btn,
+  .delete-btn,
+  .submit-btn,
+  .cancel-btn {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .edit-btn {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .delete-btn {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .submit-btn {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+  .cancel-btn {
+    background-color: #ccc;
+    color: black;
+  }
+  
+  .edit-review-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+  
+  .rating-selector {
+    margin-bottom: 15px;
+  }
+  
+  .star {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc;
+  }
+  
+  .star.filled {
+    color: #ffd700;
+  }
+  
+  .comment-input textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
