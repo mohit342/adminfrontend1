@@ -39,6 +39,7 @@ import FeaturedCategories from './pages/FeaturedCategories/FeaturedCategories';
 import Enquirypage from './pages/Equiry page/Enquirypage';
 import TopTrendingAdmin from './pages/TopTrendingAdmin/TopTrendingAdmin';
 import CouponsAll from './pages/universal coupons/couponsall';
+import AdminReviews from './pages/AdminReviews/AdminReviews';
 
 
  const MyContext =  createContext();
@@ -79,6 +80,8 @@ const ProtectedRoute = ({ children }) => {
               <Route path="/productdetail/:id" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
               <Route path="/totalstocks" element={<ProtectedRoute><TotalStocks /></ProtectedRoute>} />
               <Route path="/Enquirypage" element={<ProtectedRoute><Enquirypage /></ProtectedRoute>} />
+              <Route path="/AdminReviews" element={<ProtectedRoute><AdminReviews/></ProtectedRoute>} />
+
               <Route path="/TopTrendingAdmin" element={<ProtectedRoute><TopTrendingAdmin/></ProtectedRoute>} />
               <Route path="/CouponsAll" element={<ProtectedRoute><CouponsAll/></ProtectedRoute>} />
 
