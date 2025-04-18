@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './adminHotDeal.css';
 
 const AdminHotDeal = () => {
   const [deal, setDeal] = useState({ id: '', title: '', price: '', offer_text: '', is_visible: false, subcategory_id: '' });
@@ -9,7 +10,7 @@ const AdminHotDeal = () => {
     fetch('http://localhost:5000/api/categories')
       .then(response => response.json())
       .then(data => {
-        const allSubcategories = data.data.flatMap(category => 
+        const allSubcategories = data.data.flatMap(category =>
           category.subcategories.map(sub => ({
             id: sub.id,
             name: sub.name,
@@ -26,10 +27,10 @@ const AdminHotDeal = () => {
     const { name, value, type, checked } = e.target;
     if (name === 'title') {
       const selectedSubcategory = subcategories.find(sub => sub.name === value);
-      setDeal({ 
-        ...deal, 
-        title: value, 
-        subcategory_id: selectedSubcategory ? selectedSubcategory.id : deal.subcategory_id 
+      setDeal({
+        ...deal,
+        title: value,
+        subcategory_id: selectedSubcategory ? selectedSubcategory.id : deal.subcategory_id
       });
     } else {
       setDeal({ ...deal, [name]: type === 'checkbox' ? checked : value });
@@ -47,7 +48,7 @@ const AdminHotDeal = () => {
     formData.append('price', deal.price);
     formData.append('offer_text', deal.offer_text);
     formData.append('is_visible', deal.is_visible);
-    formData.append('subcategory_id', deal.subcategory_id); // Add this
+    formData.append('subcategory_id', deal.subcategory_id);
     if (image) formData.append('image', image);
 
     const url = deal.id ? `http://localhost:5000/api/hotdeals/${deal.id}` : 'http://localhost:5000/api/hotdeals';
@@ -67,56 +68,62 @@ const AdminHotDeal = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input 
-        name="id" 
-        placeholder="Deal ID (leave blank for new)" 
-        value={deal.id} 
-        onChange={handleChange} 
+    <form onSubmit={handleSubmit} className="form1212">
+      <input
+        className="input1212"
+        name="id"
+        placeholder="Deal ID (leave blank for new)"
+        value={deal.id}
+        onChange={handleChange}
       />
       <select
+        className="select1212"
         name="title"
         value={deal.title}
         onChange={handleChange}
       >
         <option value="">Select a subcategory</option>
         {subcategories.map(subcategory => (
-          <option 
-            key={subcategory.id} 
+          <option
+            key={subcategory.id}
             value={subcategory.name}
           >
             {`${subcategory.categoryName} > ${subcategory.name}`}
           </option>
         ))}
       </select>
-      <input 
-        type="file" 
-        name="image" 
-        accept="image/*" 
-        onChange={handleImageChange} 
+      <input
+        className="input1212"
+        type="file"
+        name="image"
+        accept="image/*"
+        onChange={handleImageChange}
       />
-      <input 
-        name="price" 
-        placeholder="Price" 
-        value={deal.price} 
-        onChange={handleChange} 
+      <input
+        className="input1212"
+        name="price"
+        placeholder="Price"
+        value={deal.price}
+        onChange={handleChange}
       />
-      <input 
-        name="offer_text" 
-        placeholder="Offer Text" 
-        value={deal.offer_text} 
-        onChange={handleChange} 
+      <input
+        className="input1212"
+        name="offer_text"
+        placeholder="Offer Text"
+        value={deal.offer_text}
+        onChange={handleChange}
       />
-      <label>
+      <label className="checkbox-label1212">
         Visible on Front Page:
         <input
           type="checkbox"
           name="is_visible"
           checked={deal.is_visible}
           onChange={handleChange}
+          className="checkbox1212"
         />
       </label>
-      <button type="submit">Submit Deal</button>
+      <button type="submit" className="button1212">Submit Deal</button>
     </form>
   );
 };

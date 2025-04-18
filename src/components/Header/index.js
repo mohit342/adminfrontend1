@@ -277,11 +277,11 @@ const Header = () => {
                                     transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                     anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                 >
-                                    <MenuItem onClick={handleCloseMyAccDrop}>
+                                    {/* <MenuItem onClick={handleCloseMyAccDrop}>
                                         <ListItemIcon><PersonAdd fontSize="small" /></ListItemIcon>
                                         My Account
                                     </MenuItem>
-                                    <Divider />
+                                    <Divider /> */}
                                     <MenuItem
                                         onClick={() => {
                                             AdminLogout(); // Log out the user

@@ -107,12 +107,12 @@ const EditProduct = () => {
           />
         </label>
 
-        <fieldset className="readonly-fields">
+        {/* <fieldset className="readonly-fields">
           <legend>Category Info (Read-Only)</legend>
           <div>Category: {product.category_name || 'N/A'}</div>
           <div>Subcategory: {product.subcategory_name || 'N/A'}</div>
           <div>Sub-Subcategory: {product.sub_subcategory_name || 'N/A'}</div>
-        </fieldset>
+        </fieldset> */}
 
         <label>
           Upload New Images:

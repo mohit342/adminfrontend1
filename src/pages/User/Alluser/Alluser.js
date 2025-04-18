@@ -24,6 +24,30 @@ const Alluser = () => {
     }
   };
 
+  const deleteUser = async (userId) => {
+    if (!window.confirm('Are you sure you want to delete this user?')) return;
+    
+    try {
+      console.log(`Sending DELETE request for user ID: ${userId}`);
+      const response = await fetch(`http://localhost:5000/api/users/${userId}`, {
+        method: 'DELETE',
+      });
+      
+      console.log('Response status:', response.status);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to delete user: ${errorText}`);
+      }
+      
+      setUsers(users.filter(user => user.id !== userId));
+      console.log('User deleted from state');
+    } catch (err) {
+      console.error('Delete error:', err.message);
+      setError(err.message);
+      fetchUsers(); // Refetch to sync with database
+    }
+  };
+
   const filteredUsers = users.filter(user =>
     user.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.role?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -42,6 +66,7 @@ const Alluser = () => {
     return (
       <div className="error-container">
         <div className="error-message">Error: {error}</div>
+        <button onClick={() => setError(null)}>Clear Error</button>
       </div>
     );
   }
@@ -69,13 +94,14 @@ const Alluser = () => {
           <div>Role</div>
           <div>School Name</div>
           <div>SE ID</div>
+          <div>Actions</div>
         </div>
 
         <div className="tableBody13">
           {loading ? (
-            // Loading skeleton
             [...Array(5)].map((_, idx) => (
               <div key={idx} className="tableRow13 skeleton-row">
+                <div className="skeleton"></div>
                 <div className="skeleton"></div>
                 <div className="skeleton"></div>
                 <div className="skeleton"></div>
@@ -95,6 +121,14 @@ const Alluser = () => {
                 </div>
                 <div>{user.school_name || '-'}</div>
                 <div>{user.se_employee_id || '-'}</div>
+                <div>
+                  <button 
+                    className="delete-button"
+                    onClick={() => deleteUser(user.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             ))
           ) : (

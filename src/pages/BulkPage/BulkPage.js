@@ -38,7 +38,7 @@ const BulkPage = () => {
                         <th>Phone</th>
                         <th>Product</th>
                         <th>Quantity</th>
-                        <th>Company</th>
+                        <th>organization name</th>
                         <th>Date</th>
                     </tr>
                 </thead>

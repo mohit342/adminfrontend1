@@ -50,11 +50,11 @@ const DashboardBox = (props) => {
     >
       {props.grow === true ? (
         <span className="chart">
-          <TrendingUpIcon />
+          {/* <TrendingUpIcon /> */}
         </span>
       ) : (
         <span className="chart">
-          <TrendingDownIcon />
+          {/* <TrendingDownIcon /> */}
         </span>
       )}
 
@@ -75,7 +75,7 @@ const DashboardBox = (props) => {
         </div>
       </div>
 
-      <div className="d-flex align-item-center w-100 bottomEle">
+      {/* <div className="d-flex align-item-center w-100 bottomEle">
         <h6 className="text-white mb-0 mt-0">Last Month</h6>
         <div className="ml-auto">
           <Button className="ml-auto toggleIcon" onClick={handleClick}>
@@ -110,7 +110,7 @@ const DashboardBox = (props) => {
             </MenuItem>
           </Menu>
         </div>
-      </div>
+      </div> */}
     </Button>
   );
 };

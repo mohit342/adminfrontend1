@@ -36,6 +36,9 @@ import BulkPage from './pages/BulkPage/BulkPage';
 import AdminHotDeal from './pages/Hotdeals/AdminHotDeal';
 import AdminHotDealList from './pages/AdminHotDealList/AdminHotDealList';
 import FeaturedCategories from './pages/FeaturedCategories/FeaturedCategories';
+import Enquirypage from './pages/Equiry page/Enquirypage';
+import TopTrendingAdmin from './pages/TopTrendingAdmin/TopTrendingAdmin';
+import CouponsAll from './pages/universal coupons/couponsall';
 
 
  const MyContext =  createContext();
@@ -75,6 +78,13 @@ const ProtectedRoute = ({ children }) => {
               <Route path="/productlist" element={<ProtectedRoute><ProductList /></ProtectedRoute>} />
               <Route path="/productdetail/:id" element={<ProtectedRoute><ProductDetail /></ProtectedRoute>} />
               <Route path="/totalstocks" element={<ProtectedRoute><TotalStocks /></ProtectedRoute>} />
+              <Route path="/Enquirypage" element={<ProtectedRoute><Enquirypage /></ProtectedRoute>} />
+              <Route path="/TopTrendingAdmin" element={<ProtectedRoute><TopTrendingAdmin/></ProtectedRoute>} />
+              <Route path="/CouponsAll" element={<ProtectedRoute><CouponsAll/></ProtectedRoute>} />
+
+              
+
+
 
               <Route path="/notification" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
               <Route path="/PaymentTransactions" element={<ProtectedRoute><PaymentTransactions /></ProtectedRoute>} />
@@ -82,7 +92,7 @@ const ProtectedRoute = ({ children }) => {
               <Route path="/return" element={<ProtectedRoute><Return /></ProtectedRoute>} />
               <Route path="/addattribute" element={<ProtectedRoute><AddAttribute /></ProtectedRoute>} />
               <Route path="/attributepage" element={<ProtectedRoute><AttributePage /></ProtectedRoute>} />
-              <Route path="/setting" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
+              {/* <Route path="/setting" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} /> */}
               <Route path="/salesreports" element={<ProtectedRoute><SalesReports /></ProtectedRoute>} />
               <Route path="/bestselling" element={<ProtectedRoute><BestSellingProducts /></ProtectedRoute>} />
              <Route path="/customerprofile" exact={true} element={<ProtectedRoute><CustomerProfile/></ProtectedRoute>} />

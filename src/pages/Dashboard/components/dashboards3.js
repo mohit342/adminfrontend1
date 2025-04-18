@@ -50,11 +50,11 @@ const DashboardBox = (props) => {
     >
       {props.grow === true ? (
         <span className="chart">
-          <TrendingUpIcon />
+          {/* <TrendingUpIcon /> */}
         </span>
       ) : (
         <span className="chart">
-          <TrendingDownIcon />
+          {/* <TrendingDownIcon /> */}
         </span>
       )}
 
@@ -76,13 +76,13 @@ const DashboardBox = (props) => {
       </div>
 
       <div className="d-flex align-item-center w-100 bottomEle">
-        <h6 className="text-white mb-0 mt-0">Last Month</h6>
+        {/* <h6 className="text-white mb-0 mt-0">Last Month</h6> */}
         <div className="ml-auto">
-          <Button className="ml-auto toggleIcon" onClick={handleClick}>
+          {/* <Button className="ml-auto toggleIcon" onClick={handleClick}>
             <HiDotsVertical />
-          </Button>
+          </Button> */}
 
-          <Menu
+          {/* <Menu
             id="long-menu"
             MenuListProps={{
               'aria-labelledby': 'long-button',
@@ -108,7 +108,7 @@ const DashboardBox = (props) => {
             <MenuItem onClick={handleClose}>
               <IoIosTimer /> Last Year
             </MenuItem>
-          </Menu>
+          </Menu> */}
         </div>
       </div>
     </Button>

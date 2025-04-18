@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Eye, Pencil, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import "./Orderpages.css";
 
 const OrderPages = () => {
@@ -32,6 +32,7 @@ const OrderPages = () => {
       });
       if (!response.ok) throw new Error("Failed to delete order");
       setOrders(orders.filter((order) => order.id !== id));
+      alert("Order deleted successfully");
     } catch (err) {
       alert(err.message);
     }
@@ -57,46 +58,47 @@ const OrderPages = () => {
             <th>Phone</th>
             <th>Total</th>
             <th>Items</th>
-            {/* <th>Actions</th> */}
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-  {orders.length > 0 ? (
-    orders.map((order) => (
-      <tr key={order.id}>
-        <td>{order.id}</td>
-        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
-        <td>{order.fullName}</td>
-        <td>{order.email}</td>
-        <td>
-          {order.address}, {order.city}, {order.state}, {order.pincode}
-        </td>
-        <td>{order.phone}</td>
-        <td>{Number(order.total).toFixed(2)}</td>
-        <td>
-          {Array.isArray(order.items) // ✅ Check if items is an array
-            ? order.items.map((item) => `${item.name} (x${item.quantity})`).join(", ")
-            : JSON.parse(order.items)
-                .map((item) => `${item.name} (x${item.quantity})`)
-                .join(", ")}
-        </td>
-        {/* <td>
-          <div className="action-icons">
-            <Eye className="icon view-icon" />
-            <Pencil className="icon edit-icon" />
-            <Trash2 className="icon delete-icon" onClick={() => deleteOrder(order.id)} />
-          </div>
-        </td> */}
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="9">No orders found</td>
-    </tr>
-  )}
-</tbody>
-
-
+          {orders.length > 0 ? (
+            orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{new Date(order.created_at).toLocaleDateString()}</td>
+                <td>{order.full_name}</td>
+                <td>{order.email}</td>
+                <td>
+                  {order.address}, {order.city}, {order.state}, {order.pincode}
+                </td>
+                <td>{order.phone}</td>
+                <td>{Number(order.total).toFixed(2)}</td>
+                <td>
+                  {Array.isArray(order.items)
+                    ? order.items
+                        .map((item) => `${item.name} (x${item.quantity})`)
+                        .join(", ")
+                    : JSON.parse(order.items)
+                        .map((item) => `${item.name} (x${item.quantity})`)
+                        .join(", ")}
+                </td>
+                <td>
+                  <div className="action-icons">
+                    <Trash2
+                      className="icon delete-icon"
+                      onClick={() => deleteOrder(order.id)}
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="9">No orders found</td>
+            </tr>
+          )}
+        </tbody>
       </table>
     </div>
   );

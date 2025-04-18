@@ -66,6 +66,7 @@ const Sidebar = () => {
                                 <li><Link to="/Hotdeals">Hot deals</Link></li>
                                 <li><Link to="/AdminHotDealList">AdminHotDealList</Link></li>
                                 <li><Link to="/FeaturedCategories">Featured Categories</Link></li>
+                                <li><Link to="/TopTrendingAdmin">TopTrending Admin</Link></li>
                                 <li><Link to="/Review">Review data</Link></li>
 
 
@@ -114,6 +115,7 @@ const Sidebar = () => {
                             <ul className='submenu'>
                                 <li><Link to="/OrderPages">View/Manage all order</Link></li>
                                 <li><Link to="/BulkPage">Bulk  order</Link></li>
+                                <li><Link to="/Enquirypage">Enquiry page</Link></li>
                                 <li><Link to="/invoice">Invoice & billing</Link></li>
                                 <li><Link to="/return">Return and refund</Link></li>
 
@@ -133,8 +135,8 @@ const Sidebar = () => {
                             <ul className='submenu'>
                                 <li><Link to="/totalcoupons">Total Coupons</Link></li>
                                 <li><Link to="#">Manage Rewards for School</Link></li>
-                                <li><Link to="#">Create coupons for Students</Link></li>
-                                <li><Link to="#">Manage Rewards for SE</Link></li>
+                                <li><Link to="/CouponsAll">Create coupons for everyone</Link></li>
+                                <li><Link to="/">everyone coupons </Link></li>
                             </ul>
                         </div>
                 </li>
@@ -220,13 +222,13 @@ const Sidebar = () => {
                     </li>
 
                    
-                    <li>
+                    {/* <li>
                         <Link to="/setting"><Button className={`w-100 ${activeTab === 13 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(13)}>
                             <span className='icon'><IoSettings /></span>
                             Settings
-                            {/* <span className='arrow'><IoIosArrowForward /></span> */}
+                            <span className='arrow'><IoIosArrowForward /></span>
                         </Button></Link>
-                    </li>
+                    </li> */}
 
 
                 </ul>

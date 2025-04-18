@@ -1,0 +1,100 @@
+/* Dashboard.css */
+
+/* General box styling (to match existing dashboard boxes) */
+.box {
+    background: #2a2f45;
+    padding: 15px;
+    border-radius: 10px;
+    height: 100%;
+  }
+  
+  /* Stock Summary container */
+  .stock-summary-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between cards */
+    padding: 10px 0;
+    background: #2c78e5; /* Blue background for the summary section */
+    border-radius: 10px;
+  }
+  
+  /* Individual stock card styling */
+  .summary-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    width: 90%; /* Slightly smaller than full width */
+    margin: 0 auto; /* Center the card */
+    height: 80px; /* Slightly smaller height than original boxes */
+  }
+  
+  .summary-card h3 {
+    font-size: 14px;
+    margin: 0;
+    font-weight: 500;
+  }
+  
+  .summary-card p {
+    font-size: 20px;
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  /* Specific colors for each stock status */
+  .in-stock {
+    background: #1da256; /* Green */
+  }
+  
+  .low-stock {
+    background: #e1950e; /* Yellow */
+  }
+  
+  .out-of-stock {
+    background: #c012e2; /* Red */
+  }
+  
+  /* Loading and error states */
+  .loading {
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .error-message {
+    color: #ff4d4d;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  /* Ensure alignment with bottomEle */
+  .bottomEle {
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Adjust toggleIcon button */
+  .toggleIcon {
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /* Ensure graphBox fits the new layout */
+  .graphBox {
+    background: #2a2f45;
+    border-radius: 10px;
+    height: 100%;
+  }
+  
+  /* Optional: Add icon placeholders (you can replace with actual icons) */
+  .summary-card::before {
+    content: "📦"; /* Placeholder icon */
+    font-size: 20px;
+    margin-right: 10px;
+  }

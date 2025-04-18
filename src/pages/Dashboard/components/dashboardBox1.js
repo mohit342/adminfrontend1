@@ -45,9 +45,9 @@ const DashboardBox = (props) => {
         }}>
             {
                 props.grow === true ?
-                    <span className="chart"><TrendingUpIcon /></span>
+                    <span className="chart"></span>
                     :
-                    <span className="chart"><TrendingDownIcon /></span>
+                    <span className="chart"></span>
             }
 
             <div className="d-flex w-100">
@@ -68,42 +68,7 @@ const DashboardBox = (props) => {
                 </div>
             </div>
 
-            <div className="d-flex align-item-center w-100 bottomEle">
-                <h6 className="text-white mb-0 mt-0">Last Month</h6>
-                <div className="ml-auto">
-                    <Button className="ml-auto toggleIcon" onClick={handleClick}>
-                        <HiDotsVertical />
-                    </Button>
-
-                    <Menu
-                        id="long-menu"
-                        MenuListProps={{
-                            'aria-labelledby': 'long-button',
-                        }}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        slotProps={{
-                            paper: {
-                                style: {
-                                    maxHeight: ITEM_HEIGHT * 4.5,
-                                    width: '20ch',
-                                },
-                            },
-                        }}
-                    >
-                        <MenuItem onClick={handleClose}>
-                            <IoIosTimer /> Last Day
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <IoIosTimer /> Last Week
-                        </MenuItem>
-                        <MenuItem onClick={handleClose}>
-                            <IoIosTimer /> Last Year
-                        </MenuItem>
-                    </Menu>
-                </div>
-            </div>
+            {/* s */}
         </Button>
     );
 };
