@@ -40,6 +40,9 @@ import Enquirypage from './pages/Equiry page/Enquirypage';
 import TopTrendingAdmin from './pages/TopTrendingAdmin/TopTrendingAdmin';
 import CouponsAll from './pages/universal coupons/couponsall';
 import AdminReviews from './pages/AdminReviews/AdminReviews';
+import AdminRedeemPage from './pages/AdminRedeemPage/AdminRedeemPage';
+import AdminRedeemPoints from './pages/AdminRedeemPage/for school/AdminRedeemPoints';
+import ReturnManagement from './components/ReturnManagement/ReturnManagement';
 
 
  const MyContext =  createContext();
@@ -81,6 +84,9 @@ const ProtectedRoute = ({ children }) => {
               <Route path="/totalstocks" element={<ProtectedRoute><TotalStocks /></ProtectedRoute>} />
               <Route path="/Enquirypage" element={<ProtectedRoute><Enquirypage /></ProtectedRoute>} />
               <Route path="/AdminReviews" element={<ProtectedRoute><AdminReviews/></ProtectedRoute>} />
+              <Route path="/AdminRedeemPage" element={<ProtectedRoute><AdminRedeemPage/></ProtectedRoute>} />
+              <Route path="/AdminRedeemPoints" element={<ProtectedRoute><AdminRedeemPoints/></ProtectedRoute>} />
+              <Route path="/ReturnManagement" element={<ProtectedRoute><ReturnManagement/></ProtectedRoute>} />
 
               <Route path="/TopTrendingAdmin" element={<ProtectedRoute><TopTrendingAdmin/></ProtectedRoute>} />
               <Route path="/CouponsAll" element={<ProtectedRoute><CouponsAll/></ProtectedRoute>} />

@@ -1,0 +1,67 @@
+.admin-redeem-points-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .admin-redeem-points-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .redeem-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .table-header, .table-row {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table-column {
+    flex: 1;
+    padding: 15px;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  .table-header .table-column {
+    font-weight: bold;
+    background-color: #f5f5f5;
+  }
+  
+  .table-row .table-column {
+    color: #555;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #c82333;
+  }
