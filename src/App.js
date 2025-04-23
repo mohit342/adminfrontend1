@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Route, Routes,Navigate } from 'react-router-dom';
 import './App.css';
 import { createContext, useState, useContext } from 'react';
@@ -43,6 +42,7 @@ import AdminReviews from './pages/AdminReviews/AdminReviews';
 import AdminRedeemPage from './pages/AdminRedeemPage/AdminRedeemPage';
 import AdminRedeemPoints from './pages/AdminRedeemPage/for school/AdminRedeemPoints';
 import ReturnManagement from './components/ReturnManagement/ReturnManagement';
+import SpecialCoupons from './pages/SpecialCoupons/SpecialCoupons';
 
 
  const MyContext =  createContext();
@@ -90,6 +90,7 @@ const ProtectedRoute = ({ children }) => {
 
               <Route path="/TopTrendingAdmin" element={<ProtectedRoute><TopTrendingAdmin/></ProtectedRoute>} />
               <Route path="/CouponsAll" element={<ProtectedRoute><CouponsAll/></ProtectedRoute>} />
+              <Route path="/SpecialCoupons" element={<ProtectedRoute><SpecialCoupons/></ProtectedRoute>} />
 
               
 

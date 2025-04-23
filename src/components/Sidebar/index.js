@@ -90,7 +90,7 @@ const Sidebar = () => {
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    {/* <li>
                         <Button className={`w-100 ${activeTab === 3 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(3)}>
                             <span className='icon'><HiCube /></span>
                             Attributes
@@ -104,7 +104,7 @@ const Sidebar = () => {
 
                             </ul>
                         </div>
-                    </li>
+                    </li> */}
                     <li>
                         <Button className={`w-100 ${activeTab === 4 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(4)}>
                             <span className='icon'><MdShoppingCart /></span>
@@ -116,8 +116,8 @@ const Sidebar = () => {
                                 <li><Link to="/OrderPages">View/Manage all order</Link></li>
                                 <li><Link to="/BulkPage">Bulk  order</Link></li>
                                 <li><Link to="/Enquirypage">Enquiry page</Link></li>
-                                <li><Link to="/invoice">Invoice & billing</Link></li>
-                                <li><Link to="/return">Return and refund</Link></li>
+                                {/* <li><Link to="/invoice">Invoice & billing</Link></li> */}
+                                <li><Link to="/ReturnManagement">Return and refund</Link></li>
 
                             </ul>
                         </div>
@@ -136,8 +136,10 @@ const Sidebar = () => {
                                 <li><Link to="/totalcoupons">Total Coupons</Link></li>
                                
                                 <li><Link to="/CouponsAll">Create coupons for everyone</Link></li>
-                                <li><Link to="/AdminRedeemPoints">AdminRedeemPoints </Link></li>
-                                <li><Link to="/AdminRedeemPage">AdminRedeemPage</Link></li>
+                                <li><Link to="/SpecialCoupons">Special Coupons</Link></li>
+
+                                <li><Link to="/AdminRedeemPoints">School REdeem Points </Link></li>
+                                <li><Link to="/AdminRedeemPage">SE REdeem Points</Link></li>
                             </ul>
                         </div>
                 </li>
@@ -156,13 +158,7 @@ const Sidebar = () => {
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <Link to="/PaymentTransactions"> <Button className={`w-100 ${activeTab === 7 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(7)}>
-                            <span className='icon'><GiWallet /></span>
-                            Payment Transaction
-                            {/* <span className='arrow'><IoIosArrowForward /></span> */}
-                        </Button></Link>
-                    </li>
+                    
                     <li>
                         <Button className={`w-100 ${activeTab === 8 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(8)}>
                             <span className='icon'><MdLocalShipping /></span>
@@ -178,7 +174,7 @@ const Sidebar = () => {
                             </ul>
                         </div>
                     </li>
-                    <li>
+                    {/* <li>
                         <Button className={`w-100 ${activeTab === 9 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(9)}>
                             <span className='icon'><FaUsers /></span>
                             customer Management
@@ -192,8 +188,8 @@ const Sidebar = () => {
 
                             </ul>
                         </div>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                         <Button className={`w-100 ${activeTab === 10 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(10)}>
                             <span className='icon'><TbReport /></span>
                             analytics & reports
@@ -206,20 +202,21 @@ const Sidebar = () => {
 
                             </ul>
                         </div>
-                    </li>
+                    </li> */}
                     <li>
-                        <Button className={`w-100 ${activeTab === 11 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(11)}>
+                    <Link to="/totalstocks"><Button className={`w-100 ${activeTab === 11 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(11)}>
                             <span className='icon'><MdWarehouse /></span>
                             Stocks
-                            <span className='arrow'><IoIosArrowForward /></span>
-                        </Button>
-                        <div className={`submenuWrapper ${activeTab === 11 && isToggleSubmenu === true ? 'colapse' : 'colapsed'}`}>
-                            <ul className='submenu'>
-                                <li><Link to="/totalstocks">Total Stocks</Link></li>
-                                <li><Link to="#">Low Stocks</Link></li>
-
-                            </ul>
-                        </div>
+                            <span className='arrow'></span>
+                        </Button></Link>
+                        
+                    </li>
+                    <li>
+                        <Link to="/PaymentTransactions"> <Button className={`w-100 ${activeTab === 7 && isToggleSubmenu === true ? 'active' : ''}`} onClick={() => isOpenSubmenu(7)}>
+                            <span className='icon'><GiWallet /></span>
+                            Payment Transaction
+                            {/* <span className='arrow'><IoIosArrowForward /></span> */}
+                        </Button></Link>
                     </li>
 
                    
@@ -248,4 +245,4 @@ const Sidebar = () => {
         </>
     )
 }
-export default Sidebar;
+export default Sidebar; 

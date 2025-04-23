@@ -31,6 +31,7 @@
   .reviews-table th {
     background-color: #f4f4f4;
     font-weight: bold;
+    color: black;
   }
   
   .reviews-table tr:nth-child(even) {

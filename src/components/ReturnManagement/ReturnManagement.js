@@ -69,46 +69,46 @@ const ReturnManagement = () => {
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="return-management-container">
+    <div className="return-management-container178">
       <h1>Return Requests Management</h1>
-      
+
       {requests.length === 0 ? (
-        <div className="no-requests">No return requests found</div>
+        <div className="no-requests178">No return requests found</div>
       ) : (
-        <div className="requests-list">
+        <div className="requests-list178">
           {requests.map((request) => (
-            <div key={request.id} className="request-card">
-              <div className="request-header">
-                <div className="request-meta">
-                  <span className="request-id">Return ID: #{request.id}</span>
-                  <span className="order-id">Order ID: #{request.order_id}</span>
-                  <span className={`status-badge ${request.status}`}>
+            <div key={request.id} className="request-card178">
+              <div className="request-header178">
+                <div className="request-meta178">
+                  <span className="request-id178">Return ID: #{request.id}</span>
+                  <span className="order-id178">Order ID: #{request.order_id}</span>
+                  <span className={`status-badge178 ${request.status}178`}>
                     {request.status.toUpperCase()}
                   </span>
                 </div>
-                <div className="user-info">
+                <div className="user-info178">
                   <p>{request.fullName}</p>
                   <p>{request.email}</p>
                 </div>
-                <div className="dates">
+                <div className="dates178">
                   <p>Submitted: {request.created_at}</p>
                   {request.updated_at && <p>Last Updated: {request.updated_at}</p>}
                 </div>
               </div>
 
-              <div className="request-body">
-                <div className="items-section">
+              <div className="request-body178">
+                <div className="items-section178">
                   <h3>Items to Return</h3>
-                  <div className="items-list">
+                  <div className="items-list178">
                     {request.items.map((item, index) => (
-                      <div key={index} className="item-card">
+                      <div key={index} className="item-card178">
                         <img
                           src={getImageSrc(item)}
                           alt={item.name}
-                          className="item-image"
+                          className="item-image178"
                           onError={(e) => e.target.src = 'http://localhost:5000/placeholder.jpg'}
                         />
-                        <div className="item-details">
+                        <div className="item-details178">
                           <h4>{item.name}</h4>
                           <p>Quantity: {item.quantity}</p>
                           <p>Price: ₹{(Number(item.price) || 0).toFixed(2)}</p>
@@ -118,12 +118,12 @@ const ReturnManagement = () => {
                   </div>
                 </div>
 
-                <div className="summary-section">
-                  <div className="reason-box">
+                <div className="summary-section178">
+                  <div className="reason-box178">
                     <h4>Return Reason</h4>
                     <p>{request.reason || 'No reason provided'}</p>
                   </div>
-                  <div className="total-box">
+                  <div className="total-box178">
                     <h4>Order Total</h4>
                     <p>₹{request.total?.toFixed(2)}</p>
                   </div>
@@ -131,15 +131,15 @@ const ReturnManagement = () => {
               </div>
 
               {request.status === 'pending' && (
-                <div className="action-buttons">
+                <div className="action-buttons178">
                   <button
-                    className="approve-btn"
+                    className="approve-btn178"
                     onClick={() => handleStatusUpdate(request.id, 'approved')}
                   >
                     Approve Return
                   </button>
                   <button
-                    className="reject-btn"
+                    className="reject-btn178"
                     onClick={() => handleStatusUpdate(request.id, 'rejected')}
                   >
                     Reject Return
@@ -153,5 +153,6 @@ const ReturnManagement = () => {
     </div>
   );
 };
+
 
 export default ReturnManagement;

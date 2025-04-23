@@ -78,7 +78,7 @@ const Alluser = () => {
         <div className="searchContainer13">
           <input
             type="text"
-            placeholder="Search users..."
+            placeholder="Search by Name, User, or Role..."
             className="searchInput13"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}

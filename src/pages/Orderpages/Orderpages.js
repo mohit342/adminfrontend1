@@ -6,6 +6,7 @@ const OrderPages = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); // Added for search
 
   useEffect(() => {
     fetchOrders();
@@ -38,13 +39,28 @@ const OrderPages = () => {
     }
   };
 
+  // Filter orders based on search term
+  const filteredOrders = orders.filter(
+    (order) =>
+      order.id.toString().includes(searchTerm.toLowerCase()) ||
+      order.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.phone.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   if (loading) return <p>Loading orders...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="order-container">
       <div className="order-header">
-        <input type="text" placeholder="Search Orders..." className="search-input1" />
+        <input
+          type="text"
+          placeholder="Search by Order ID, Customer, Email, or Phone..."
+          className="search-input1"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // Update search term
+        />
       </div>
 
       <table className="order-table">
@@ -62,8 +78,8 @@ const OrderPages = () => {
           </tr>
         </thead>
         <tbody>
-          {orders.length > 0 ? (
-            orders.map((order) => (
+          {filteredOrders.length > 0 ? (
+            filteredOrders.map((order) => (
               <tr key={order.id}>
                 <td>{order.id}</td>
                 <td>{new Date(order.created_at).toLocaleDateString()}</td>

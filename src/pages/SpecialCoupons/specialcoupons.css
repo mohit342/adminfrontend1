@@ -1,0 +1,86 @@
+.special-coupons-container {
+  padding: 30px;
+  max-width: 1000px;
+  margin: 40px auto;
+  font-family: 'Inter', sans-serif;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.special-coupons-container h1 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.coupons-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.coupon-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9fafb;
+  border: 1px solid #e2e8f0;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.coupon-item:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  transform: translateY(-2px);
+}
+
+.coupon-item span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.btn-delete {
+  width: 70px; /* 👈 fixed small width */
+  background-color: #ef4444;
+  color: #fff;
+  border: none;
+  padding: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+  transform: scale(1.05);
+}
+
+.error {
+  color: #b91c1c;
+  background-color: #fee2e2;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+p {
+  text-align: center;
+  color: #6b7280;
+  font-size: 1rem;
+  margin-top: 10px;
+}

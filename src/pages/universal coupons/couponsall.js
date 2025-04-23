@@ -90,7 +90,7 @@ const CouponsAll = () => {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="valid_until">Valid Until</label>
+          <label htmlFor="valid_until">Valid before</label>
           <input
             type="date"
             id="valid_until"

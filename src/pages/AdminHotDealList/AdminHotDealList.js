@@ -5,19 +5,18 @@ const AdminHotDealList = () => {
   const [editDeal, setEditDeal] = useState(null);
   const [image, setImage] = useState(null);
 
-  // Function to fetch deals from the server
   const fetchDeals = () => {
     fetch('http://localhost:5000/api/hotdeals?admin=true')
       .then(response => response.json())
       .then(data => {
-        console.log('Fetched deals:', data); // Log for debugging
+        console.log('Fetched deals:', data);
         setDeals(data);
       })
       .catch(error => console.error('Error fetching deals:', error));
   };
 
   useEffect(() => {
-    fetchDeals(); // Initial fetch on mount
+    fetchDeals();
   }, []);
 
   const handleChange = (e) => {
@@ -38,7 +37,8 @@ const AdminHotDealList = () => {
     const formData = new FormData();
     formData.append('title', editDeal.title);
     formData.append('price', editDeal.price);
-    formData.append('offer_text', editDeal.offer_text || '');
+    // Explicitly handle empty offer text
+    formData.append('offer_text', editDeal.offer_text === '' ? '' : editDeal.offer_text || '');
     formData.append('is_visible', editDeal.is_visible);
     if (image) formData.append('image', image);
 
@@ -49,7 +49,7 @@ const AdminHotDealList = () => {
       .then(response => response.json())
       .then(data => {
         alert(data.message);
-        fetchDeals(); // Re-fetch deals after update
+        fetchDeals();
         setEditDeal(null);
         setImage(null);
       })
@@ -64,7 +64,7 @@ const AdminHotDealList = () => {
         .then(response => response.json())
         .then(data => {
           alert(data.message);
-          fetchDeals(); // Re-fetch deals after deletion
+          fetchDeals();
         })
         .catch(error => console.error('Error deleting deal:', error));
     }
@@ -84,7 +84,7 @@ const AdminHotDealList = () => {
     formData.append('price', deal.price.toString().replace(/[^0-9.]/g, ''));
     formData.append('offer_text', deal.offer_text || '');
     formData.append('is_visible', willBeVisible.toString());
-    formData.append('image_path', deal.image_path); // Preserve existing image
+    formData.append('image_path', deal.image_path);
 
     try {
       const response = await fetch(`http://localhost:5000/api/hotdeals/${deal.id}`, {
@@ -98,12 +98,8 @@ const AdminHotDealList = () => {
       }
 
       const data = await response.json();
-      console.log('Update response:', data); // Log the response for debugging
-
-      // Re-fetch deals from the server to ensure sync
+      console.log('Update response:', data);
       fetchDeals();
-
-      // Trigger refresh for front page
       window.dispatchEvent(new Event('hotDealsRefresh'));
     } catch (error) {
       console.error('Toggle error:', error);

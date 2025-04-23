@@ -6,13 +6,31 @@ const TotalStocks = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [lowStockLevels, setLowStockLevels] = useState({});
-  const [globalLowStockLevel, setGlobalLowStockLevel] = useState(10);
-  const [orderProductId, setOrderProductId] = useState('');
-  const [orderQuantity, setOrderQuantity] = useState(1);
+  const DEFAULT_LOW_STOCK_LEVEL = 10;
 
   useEffect(() => {
     fetchStockData();
+
+    // Listen for storage events to refresh stock
+    const handleStorageChange = (e) => {
+      if (e.key === 'refreshStock') {
+        fetchStockData();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    // Refetch when window is focused
+    const handleFocus = () => {
+      fetchStockData();
+    };
+
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
 
   const fetchStockData = async () => {
@@ -24,26 +42,16 @@ const TotalStocks = () => {
         throw new Error(`Failed to fetch products: ${productsResponse.statusText}`);
       }
       const productsData = await productsResponse.json();
-      
+      console.log(productsData);
+
       if (!productsData || !Array.isArray(productsData.data)) {
         throw new Error('Invalid products data format');
       }
 
-      const ordersResponse = await fetch('http://localhost:5000/api/orders');
-      if (!ordersResponse.ok) {
-        throw new Error(`Failed to fetch orders: ${ordersResponse.statusText}`);
-      }
-      const ordersData = await ordersResponse.json();
-
-      const orders = Array.isArray(ordersData.data) ? ordersData.data : [];
-
+      // Process stock data directly from products table
       const processedStock = productsData.data.map(product => {
-        const soldQuantity = orders
-          .filter(order => order.product_id === product.id)
-          .reduce((sum, order) => sum + (order.quantity || 0), 0);
-
-        const currentStock = (product.stock_quantity || 0) - soldQuantity;
-        const lowStockLevel = lowStockLevels[product.id] || product.low_stock_level || globalLowStockLevel;
+        const currentStock = Number(product.stock_quantity) || 0;
+        const lowStockLevel = product.low_stock_level || DEFAULT_LOW_STOCK_LEVEL;
 
         let status = 'In Stock';
         if (currentStock === 0) {
@@ -73,101 +81,11 @@ const TotalStocks = () => {
     }
   };
 
-  const handleLowStockChange = async (productId, newLevel) => {
-    if (newLevel < 0) {
-      alert('Low stock level cannot be negative.');
-      return;
-    }
-
-    try {
-      const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ low_stock_level: newLevel }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update low stock level');
-      }
-
-      setLowStockLevels(prev => ({
-        ...prev,
-        [productId]: newLevel
-      }));
-
-      fetchStockData();
-    } catch (err) {
-      console.error('Error updating low stock level:', err);
-      alert('Failed to update low stock level. Please try again.');
-    }
-  };
-
-  const handleGlobalLowStockChange = async () => {
-    if (globalLowStockLevel < 0) {
-      alert('Global low stock level cannot be negative.');
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/api/products/batch-update', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ low_stock_level: globalLowStockLevel }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to update global low stock level');
-      }
-
-      setLowStockLevels({});
-      fetchStockData();
-      alert('Global low stock level updated successfully!');
-    } catch (err) {
-      console.error('Error updating global low stock level:', err);
-      alert('Failed to update global low stock level. Please try again.');
-    }
-  };
-
-  const handlePlaceOrder = async () => {
-    if (!orderProductId || orderQuantity <= 0) {
-      alert('Please select a product and enter a valid quantity.');
-      return;
-    }
-
-    try {
-      const response = await fetch('http://localhost:5000/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          product_id: parseInt(orderProductId),
-          quantity: orderQuantity,
-        }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to place order');
-      }
-
-      setOrderProductId('');
-      setOrderQuantity(1);
-      fetchStockData();
-      alert('Order placed successfully!');
-    } catch (err) {
-      console.error('Error placing order:', err);
-      alert(`Failed to place order: ${err.message}`);
-    }
-  };
-
+  // Updated filter to include Status
   const filteredStocks = stockData.filter(item =>
     item.product.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    item.category.toLowerCase().includes(searchTerm.toLowerCase())
+    item.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    item.status.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {
@@ -185,46 +103,12 @@ const TotalStocks = () => {
         <div className="search-box">
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search by Product, Category, or Status..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
-
-      <div className="global-low-stock">
-        <label>Set Global Low Stock Level: </label>
-        <input
-          type="number"
-          value={globalLowStockLevel}
-          onChange={(e) => setGlobalLowStockLevel(parseInt(e.target.value) || 0)}
-          min="0"
-          style={{ width: '60px', marginRight: '10px' }}
-        />
-        <button onClick={handleGlobalLowStockChange}>Apply to All</button>
-      </div>
-
-      {/* <div className="place-order">
-        <h3>Place Order</h3>
-        <select
-          value={orderProductId}
-          onChange={(e) => setOrderProductId(e.target.value)}
-          style={{ marginRight: '10px' }}
-        >
-          <option value="">Select Product</option>
-          {stockData.map(item => (
-            <option key={item.id} value={item.id}>{item.product}</option>
-          ))}
-        </select>
-        <input
-          type="number"
-          value={orderQuantity}
-          onChange={(e) => setOrderQuantity(parseInt(e.target.value) || 1)}
-          min="1"
-          style={{ width: '60px', marginRight: '10px' }}
-        />
-        <button onClick={handlePlaceOrder}>Place Order</button>
-      </div> */}
 
       <div className="stock-summary-cards">
         <div className="summary-card total-products">
@@ -263,15 +147,7 @@ const TotalStocks = () => {
                 <td>{item.product}</td>
                 <td>{item.category}</td>
                 <td>{item.currentStock}</td>
-                <td>
-                  <input
-                    type="number"
-                    value={item.lowStockLevel}
-                    onChange={(e) => handleLowStockChange(item.id, parseInt(e.target.value) || 0)}
-                    min="0"
-                    style={{ width: '60px' }}
-                  />
-                </td>
+                <td>{item.lowStockLevel}</td>
                 <td>
                   <span className={`status-badge ${item.status.toLowerCase().replace(' ', '-')}`}>
                     {item.status}

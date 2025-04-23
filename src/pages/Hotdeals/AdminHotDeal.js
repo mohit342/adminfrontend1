@@ -69,13 +69,14 @@ const AdminHotDeal = () => {
 
   return (
     <form onSubmit={handleSubmit} className="form1212">
-      <input
+      <h1> Hot deals</h1>
+      {/* <input
         className="input1212"
         name="id"
         placeholder="Deal ID (leave blank for new)"
         value={deal.id}
         onChange={handleChange}
-      />
+      /> */}
       <select
         className="select1212"
         name="title"

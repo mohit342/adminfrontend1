@@ -88,7 +88,7 @@ const ProductList = () => {
         <div className="search-bar123">
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search products By ID and Name "
             value={searchTerm}
             onChange={handleSearch}
           />
